@@ -1,0 +1,70 @@
+trans(props...)
+  transition-timing-function: $transition-timing-function
+  transition-duration: $transition-duration
+  transition-property: unquote(props)
+
+bg-cover()
+  background-size: cover
+  background-repeat: no-repeat
+  background-position: center
+
+abs-center(dir = 'all')
+  position: absolute
+  if dir == 'hz' || dir == 'all'
+    left: 0
+    right: 0
+  if dir == 'vt' || dir == 'all'
+    top: 0
+    bottom: 0
+  margin: auto
+
+clearfix()
+  &:after
+    content: ''
+    display: table
+    clear: both
+
+pseudo-abs()
+  content: ''
+  display: block
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+
+img-block(filename, m = 1)
+  display: inline-block
+  $img = img-url(filename)
+  width: (image-size($img)[0]/m)
+  height: (image-size($img)[1]/m)
+  background-image: url($img)
+  background-size: @width @height
+  background-repeat: no-repeat
+
+trans-visible()
+  opacity: 0
+  visibility: hidden
+  trans('opacity, visibility')
+  &.visible
+    opacity: 1
+    visibility: visible
+
+blur-ability()
+  trans('filter')
+  &.blurred
+    filter: blur(10px)
+
+vt-middle()
+  position: relative
+  top: 50%
+  transform: translateY(-50%)
+
+size-flex(settings, prop = 'font-size')
+  @media(max-width: (settings.min / (settings.max / settings.width)))
+    {prop}: settings.min
+
+  {prop}: (settings.max / settings.width * 100)vw
+
+  @media(min-width: settings.width)
+    {prop}: settings.max

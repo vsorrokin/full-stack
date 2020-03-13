@@ -1,0 +1,38 @@
+.tooltip-menu-container
+  position: relative
+
+.tooltip-menu-trigger
+  cursor: pointer
+
+.tooltip-menu
+  position: absolute
+  right: 0
+  top: calc(100% + 11px)
+  background-color: $color-white
+  box-shadow: 0 1px 11px 0 rgba($color-black, .07)
+  border-radius: 11px
+  min-width: 185px
+  overflow: hidden
+  user-select: none
+  z-index: 10
+  padding: 7px
+  font-size: 13px
+  trans-visible()
+
+  li
+    padding-bottom: 5px
+    &:last-child
+      padding-bottom: 0
+    &.remove
+      color: $color-red
+
+  .item-content
+    padding: 10px 11px 9px 11px
+    trans('background-color')
+    text-align: left
+    cursor: pointer
+    border-radius: 6px
+    &:hover
+      background-color: rgba($color-border, .5)
+    &:active
+      background-color: rgba($color-border, .7)

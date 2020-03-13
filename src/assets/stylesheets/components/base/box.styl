@@ -1,0 +1,37 @@
+.box
+  $padding = 20px
+
+  background-color: $color-white
+  border-radius: 11px
+  box-shadow: $box-shadow $color-shadow-grey
+  display: block
+
+  &.bl-icon
+    padding: 20px
+    .box-content
+      padding: 0
+      position: relative
+    .bordered-icon, .wrap-icon
+      position: absolute
+      left: 0
+      bottom: 0
+
+  &.inverted
+    background-color: $color-base
+    color: $color-white
+    box-shadow: $box-shadow rgba($color-base, .4)
+
+    .bordered-icon
+      box-shadow: none
+
+  &-content
+    padding: $padding
+    min-height: 100% // for cases when box-content need to position absolute elements
+
+  &.less-padding
+    .box-content
+      padding: 14px 18px
+    &.bl-icon
+      padding: 14px 18px
+      .box-content
+        padding: 0

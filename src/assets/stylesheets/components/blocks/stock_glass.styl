@@ -1,0 +1,74 @@
+.stock-glass
+  width: 282px
+  position: relative
+  .box
+    padding: 25px 0
+  .title
+    font-size: 20px
+    text-transform: uppercase
+    margin-bottom: 30px
+  .header
+    clearfix()
+    padding: 0 19px
+    margin-bottom: 13px
+    .column
+      color: rgba($color-text, .5)
+      font-size: 13px
+      letter-spacing: 0.02em
+
+      &:last-child
+        text-align: right
+        display: block
+
+  .row
+    height: 44px
+    position: relative
+    padding: 2px 0
+    .row-wrapper
+      height: 100%
+      position: relative
+    .scale
+      position: absolute
+      height: 100%
+      left: 0
+      top: 0
+  .purchase
+    padding-top: 8px
+    padding-bottom: 7px
+    border-top: 1px solid $color-border
+    .scale
+      background-color: rgba($color-pink, .2)
+
+  .sale
+    padding-top: 8px
+    border-top: 1px solid $color-border
+    margin-bottom: 7px
+    .scale
+      background-color: rgba($color-base, .2)
+  .row-content, .spread
+    clearfix()
+    height: 100%
+    padding: 0 21px
+    .column:last-child
+      text-align: right
+
+  .column
+    float: left
+    width: 50%
+    height: 100%
+    display: flex
+    span
+      margin: auto 0
+      width: 100%
+  .row-content
+    span
+      font-size: 17px
+      font-weight: 400
+
+  .spread
+    border-top: 1px solid $color-border
+    font-size: 13px
+    padding: 16px 20px
+    font-weight: 400
+    .column:first-child
+      opacity: .5

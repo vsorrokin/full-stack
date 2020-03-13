@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "AktivGroteskCorp-Bold";
+    src: url("AktivGroteskCorp-Bold.eot");
+    src: url("AktivGroteskCorp-Bold.eot?#iefix") format("embedded-opentype"),
+         url("AktivGroteskCorp-Bold.woff2") format("woff2"),
+         url("AktivGroteskCorp-Bold.woff") format("woff"),
+         url("AktivGroteskCorp-Bold.ttf") format("ttf"),
+         url("AktivGroteskCorp-Bold.svg#AktivGroteskCorp-Bold") format("svg");
+    font-style: normal;
+    font-weight: 700;
+}

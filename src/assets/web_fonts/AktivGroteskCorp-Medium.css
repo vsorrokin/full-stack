@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "AktivGroteskCorp-Medium";
+    src: url("AktivGroteskCorp-Medium.eot");
+    src: url("AktivGroteskCorp-Medium.eot?#iefix") format("embedded-opentype"),
+         url("AktivGroteskCorp-Medium.woff2") format("woff2"),
+         url("AktivGroteskCorp-Medium.woff") format("woff"),
+         url("AktivGroteskCorp-Medium.ttf") format("ttf"),
+         url("AktivGroteskCorp-Medium.svg#AktivGroteskCorp-Medium") format("svg");
+    font-style: normal;
+    font-weight: normal;
+}

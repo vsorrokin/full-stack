@@ -1,0 +1,133 @@
+.btn-link
+  border: none
+  background-color: transparent
+  padding: 0
+  margin: 0
+  font-size: 17px
+  color: $color-base
+  display: block
+  text-align: left
+  width: 100%
+  outline: none
+  user-select: none
+
+.btn
+  $box-shadow = 0 1px 11px 0
+
+  background-color: $color-base
+  font-weight: 700
+  border: none
+  color: $color-white
+  border-radius: 8px
+  box-shadow: $box-shadow rgba($color-base, .4)
+  display: block
+  width: 100%
+  outline: none
+  user-select: none
+  text-align: center
+  padding: 11px 15px 12px
+  font-size: 20px
+
+  trans('opacity')
+
+  &.red
+    box-shadow: none
+    background-color: $color-btn-red
+
+  &.box
+    background-color: transparent
+    color: $color-text
+    box-shadow: $box-shadow $color-shadow-grey
+    font-size: 17px
+    font-weight: 500
+    padding: 19px
+
+    i
+      font-size: 22px
+      display: inline-block
+      margin-right: 8px
+      margin-top: -1px
+
+    i, span
+      vertical-align: middle
+
+  &-action
+    background-color: transparent
+    border: 1px solid $color-border
+    box-shadow: none
+    display: inline-block
+    color: inherit
+    font-size: 17px
+    font-weight: 400
+    width: auto
+    padding: 7px 15px
+
+  &-red
+    color: rgba($color-red, .9)
+
+  &-space
+    color: $color-base
+    background-color: $color-btn-space
+    box-shadow: none
+    font-weight: 400
+    font-size: inherit
+    padding: 24px
+
+    trans('background-color')
+    &:hover
+      background-color: darken(@background-color, 2%)
+    &:active
+      background-color: darken(@background-color, 4%)
+
+    i
+      font-size: 22px
+      margin-bottom: 9px
+      display: inline-block
+
+      &.icon-dots
+        font-size: 23px
+        margin-top: -1px
+
+  &[disabled], &.disabled
+    pointer-events: none
+    opacity: .1
+
+.btn-list
+  .btn
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
+
+.btn-clean
+  margin: 0
+  padding: 0
+  border: none
+  outline: none
+  user-select: none
+  background-color: transparent
+
+
+.buttons
+  clearfix()
+  margin: -5px
+  .btn-wrap
+    padding: 3px
+    float: left
+
+  &.action-list
+    padding: 0 20px
+    .btn
+      padding: 11px 13px
+      border-radius: 20px
+      border: 1px solid rgba($color-text, .1)
+      color: rgba($color-text, .3)
+      font-size: 15px
+      trans('color, border-color')
+
+      &:hover
+        border-color: rgba($color-text, .3)
+        color: rgba($color-text, .5)
+
+      &:active
+        border-color: rgba($color-text, .5)
+        color: rgba($color-text, .7)

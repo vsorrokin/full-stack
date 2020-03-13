@@ -1,0 +1,121 @@
+#exchange-block
+  .red
+    color: $color-error
+    .value, i
+      color: @color !important
+
+  .currency-name
+    font-size: 20px
+    margin-bottom: 8px
+
+  .balance-exchange
+    margin-left: -4px
+    margin-bottom: 32px
+
+  .chart
+    margin: 0 -20px
+    height: 109px
+    margin-top: 4px
+
+  .chart-period-buttons
+    margin-top: 10px
+    margin-left: -11px
+    margin-bottom: -8px
+    button
+      padding: 8.5px
+      opacity: .2
+      trans('opacity, color')
+
+      &:hover
+        opacity: .4
+
+      &.active
+        opacity: 1
+        color: $color-base
+
+  .rate-box
+
+    &.hide-chart-period
+      .chart-period-buttons
+        display: none
+      .chart
+        height: 145px
+
+    .note
+      opacity: .5
+      font-size: 15px
+      font-weight: 400
+      padding-left: 7px
+      position: relative
+      top: -1px
+
+    .rate
+      .value
+        font-size: 22px
+      .unit
+        font-size: 15px
+        padding-left: 7px
+
+    .rate-change
+      margin-top: 9px
+      margin-left: -2px
+
+      i
+        font-size: 16px
+      .value, i
+        color: $color-exchange-green
+
+      .value
+        font-size: 15px
+        padding-left: 6px
+        position: relative
+        top: -1px
+
+  .buy-box
+    margin-bottom: 8px
+
+  .buy-box, .sell-box
+    height: 135px
+    @media(max-width: 450px)
+      height: 115px
+    @media(max-width: 360px)
+      height: 95px
+    .box-content
+      display: flex
+      justify-content: space-between
+    .title
+      h3
+        font-weight: 700
+        @media(max-width: 450px)
+          font-size: 25px
+        @media(max-width: 360px)
+          font-size: 20px
+    .rate
+      .value
+        font-size: 55px
+        font-weight: 400
+        letter-spacing: -0.08em
+        position: relative
+        top: -7px
+        @media(max-width: 450px)
+          font-size: 40px
+        @media(max-width: 360px)
+          font-size: 30px
+      .unit
+        font-size: 13px
+        opacity: 0.5
+        vertical-align: top
+        padding-left: 15px
+        position: relative
+        top: 7px
+        left: -6px
+      .note
+        font-weight: 400
+        margin-top: -8px
+        margin-left: 3px
+
+.storage-fee
+  color: #AB0202
+  font-weight: 400
+  margin-top: -28px
+  padding-left: 20px
