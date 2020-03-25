@@ -10,23 +10,11 @@ Vue.use(Vuex);
 const getters = Getters(Vue.prototype);
 
 const state = {
-  isAuthenticated: false,
-  activeModalName: null,
-  modalSettings: {},
-  user: null,
-  mode: 'sugar',
-  accounts: null,
-  lastOperation: null,
-  showTopup: false
+
 };
 
-export default async function() {
+export function createStore() {
   const vue = Vue.prototype;
-
-  // await vue.$storage.init();
-  // const localStorageState = await vue.$storage.getFullState();
-  //
-  // Object.assign(state, localStorageState);
 
   return new Vuex.Store({
     state,

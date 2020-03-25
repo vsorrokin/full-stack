@@ -1,5 +1,6 @@
 <template lang="jade">
-  router-view
+  #app
+    router-view
 </template>
 
 <script>

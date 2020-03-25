@@ -2,22 +2,29 @@ const path = require('path');
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const buildConfig = require('../../config/build');
 
-const loaders = require('./loaders');
+const loaders = require('../loaders');
 
 const context = path.resolve('./src');
 
 module.exports = {
+  mode: 'development',
+
   context,
 
-  entry: {
-    main: './index.js'
+  entry: './app.js',
+
+  output: {
+    publicPath: buildConfig.publicPath + '/'
   },
 
   resolve: {
     extensions: ['.js', '.vue', '.styl'],
     alias: {
-      '@': context
+      '@': context,
+      '#c': path.resolve(context, 'components'),
+      '#p': path.resolve(context, 'components/pages')
     }
   },
 
