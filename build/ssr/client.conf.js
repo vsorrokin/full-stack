@@ -6,8 +6,15 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const baseConfig = require(`../spa/${isProd ? 'prod' : 'base'}.conf.js`);
 
+const buildConfig = require('../../config/build');
+
 module.exports = merge(baseConfig, {
   entry: './entry-client.js',
+
+  output: {
+    publicPath: buildConfig.publicPath + '/'
+  },
+
   plugins: [
     // Important: this splits the webpack runtime into a leading chunk
     // so that async chunks can be injected right after it.

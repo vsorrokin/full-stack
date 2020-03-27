@@ -2,7 +2,6 @@ const path = require('path');
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const buildConfig = require('../../config/build');
 
 const loaders = require('../loaders');
 
@@ -13,11 +12,7 @@ module.exports = {
 
   context,
 
-  entry: './app.js',
-
-  output: {
-    publicPath: buildConfig.publicPath + '/'
-  },
+  entry: './entry-client.js',
 
   resolve: {
     extensions: ['.js', '.vue', '.styl'],

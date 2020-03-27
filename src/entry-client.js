@@ -2,6 +2,14 @@ import Vue from 'vue';
 
 import { createApp } from './app';
 
+const buildConfig = require('@/../config/build');
+
+if (buildConfig.mode === 'SPA') {
+  const DOMRoot = document.createElement("div");
+  DOMRoot.setAttribute('id', 'app');
+  document.body.childNodes[1].replaceWith(DOMRoot);
+}
+
 Vue.mixin({
   beforeRouteUpdate (to, from, next) {
     const { asyncData } = this.$options
@@ -23,5 +31,5 @@ if (window.__INITIAL_STATE__) {
 }
 
 router.onReady(() => {
-  app.$mount('#app')
+  app.$mount('#app');
 });

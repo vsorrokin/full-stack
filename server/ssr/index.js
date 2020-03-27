@@ -1,16 +1,13 @@
-const port = process.env.PORT || 8443;
-
 // Dependencies
 const path               = require('path');
 const express            = require('express');
 const favicon            = require('serve-favicon');
 const compression        = require('compression');
 const microcache         = require('route-cache');
-const opn                = require('opn');
-const https              = require('https');
-const fs                 = require('fs');
 const Render             = require('./render.js');
 const resolve            = file => path.resolve(__dirname, file);
+const expressStaticGzip  = require("express-static-gzip");
+const listen             = require('../listen');
 
 const buildConfig = require('../../config/build');
 
@@ -35,22 +32,13 @@ const serve = (path, cache) => express.static(resolve(path), {
   const render = new Render(settings);
   await render.init();
 
-  app.use(buildConfig.publicPath, serve(resolve('../../dist'), true));
+  app.use(buildConfig.publicPath, expressStaticGzip(resolve('../../dist')));
 
   // Run render on any route request
   app.get('*', (req, res) => render.start(req, res));
 
   // Start the server
-  const httpsServer = https.createServer({
-    key: fs.readFileSync(resolve('../../ssl/localhost-key.pem')),
-    cert: fs.readFileSync(resolve('../../ssl/localhost.pem'))
-  }, app);
-
-  httpsServer.listen(port, function () {
-    opn(`https://localhost:${port}`);
-
-    console.log(`Production HTTPS app listening on port ${port}!`);
-  });
+  listen(app, settings.isProd);
 })();
 
 

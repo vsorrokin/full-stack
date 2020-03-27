@@ -1,14 +1,9 @@
 {
   "scripts": {
-    "dev:ssr": "cross-env NODE_ENV=development node server/ssr",
-    "start": "cross-env NODE_ENV=development webpack-dashboard -- webpack-dev-server --config ./bundler/webpack/dev.conf.js",
-    "build:spa": "rimraf dist && webpack --config ./build/spa/prod.conf.js",
-    "prod:ssr": "cross-env NODE_ENV=production node server/ssr",
-    "build:ssr:client": "cross-env NODE_ENV=production webpack --config build/ssr/client.conf.js --progress --hide-modules",
-    "build:ssr:server": "cross-env NODE_ENV=production webpack --config build/ssr/server.conf.js --progress --hide-modules",
-    "build:ssr": "rimraf dist && yarn build:ssr:client && yarn build:ssr:server",
-    "https-gen": "cd ssl && mkcert localhost",
-    "prod": "node server.js"
+    "start": "node run.js -t dev",
+    "build": "node run.js -t build",
+    "prod": "node run.js -t prod",
+    "https-gen": "cd ssl && mkcert localhost"
   },
   "dependencies": {
     "@babel/core": "^7.8.7",
@@ -17,9 +12,11 @@
     "@babel/runtime": "^7.8.7",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
+    "command-line-args": "^5.1.1",
     "compression-webpack-plugin": "^3.1.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
+    "execa": "^4.0.0",
     "express": "^4.17.1",
     "express-static-gzip": "^2.0.6",
     "file-loader": "^5.1.0",
