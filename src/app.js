@@ -8,7 +8,7 @@ export function createApp(context) {
   const router = createRouter();
   const store = createStore();
 
-  sync(store, router);
+  sync(store, router, { moduleName: 'RouteModule' });
 
   const app = new Vue({
     router,
