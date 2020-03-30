@@ -29,7 +29,8 @@ module.exports = {
       loaders.stylus,
       loaders.vue,
       loaders.pug,
-      loaders.font
+      loaders.font,
+      loaders.image
     ]
   },
 

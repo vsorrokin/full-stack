@@ -1,5 +1,9 @@
 <template lang="jade">
-  div Home page
+  div(style="padding: 100px 500px")
+    .card(v-perspective)
+      .image
+      .shadow
+
 </template>
 
 <script>
@@ -12,15 +16,6 @@ export default {
     });
 
     return data;
-  },
-
-  data() {
-    return {
-    };
-  },
-
-  components: {
-
   }
 }
 </script>

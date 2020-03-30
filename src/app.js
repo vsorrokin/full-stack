@@ -4,6 +4,8 @@ import { createStore } from './store';
 import { sync } from 'vuex-router-sync';
 import { createRouter } from './router';
 
+require('@/directives/perspective');
+
 export function createApp(context) {
   const router = createRouter();
   const store = createStore();
