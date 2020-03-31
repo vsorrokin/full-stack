@@ -1,6 +1,7 @@
 <template lang="jade">
-  #app
-    router-view
+    #app.body-container
+      .navbar
+      router-view
 </template>
 
 <script>

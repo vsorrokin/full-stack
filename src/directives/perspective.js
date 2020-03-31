@@ -15,8 +15,8 @@ Vue.directive('perspective', {
     const w = el.offsetWidth;
     const h = el.offsetHeight;
 
-    const DOMBase = el.querySelector('.image');
-    const DOMShadow = el.querySelector('.shadow');
+    const DOMBase = el.querySelector('.image-wrap');
+    const DOMShadow = el.querySelector('.shadow-wrap');
 
     el.addEventListener('mousemove', event => {
       const y = settings.offset - (event.offsetX / w) * (settings.offset * 2);
