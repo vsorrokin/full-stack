@@ -33,20 +33,14 @@ class dbService {
     }
 
     try {
-      console.log(`
-        dbname=postgres
-        host=${serviceConfig.postgres.host}
-        user=${credentials.postgres.user}
-        password=${credentials.postgres.password}
-      `)
       pgClient.connectSync(`
         dbname=postgres
         host=${serviceConfig.postgres.host}
         user=${credentials.postgres.user}
         password=${credentials.postgres.password}
+        port=${serviceConfig.postgres.port}
       `);
       resolve();
-
     } catch(e) {
       console.log(e);
       setTimeout(() => {
@@ -71,7 +65,7 @@ class dbService {
       $do$;
     `);
 
-    this.createExtensions();
+    //this.createExtensions();
   }
 
   createExtensions() {
@@ -79,8 +73,9 @@ class dbService {
       dbname=${serviceConfig.postgres.name}
       host=${serviceConfig.postgres.host}
       user=${credentials.postgres.user}
-      password=${credentials.postgres.password}`
-    );
+      password=${credentials.postgres.password}
+      port=${serviceConfig.postgres.port}
+    `);
 
     pgClient.querySync('CREATE EXTENSION IF NOT EXISTS postgis;');
   }
