@@ -1,21 +1,10 @@
+const run = require('./common/cmd_runner');
+
 const commandLineArgs = require('command-line-args');
 
 const options = commandLineArgs([
   { name: 'task', alias: 't', type: String, defaultOption: 'dev' }
 ]);
-
-const execa = require('execa');
-
-async function run(cmd) {
-  const cmdsString = cmd.trim().replace(/\s\s+/g, ' ')
-  const cmdsList = cmdsString.split('&&');
-
-  for (let i = 0; i < cmdsList.length; i++) {
-    const cmdParts = cmdsList[i].trim().split(' ');
-
-    await execa(cmdParts[0], cmdParts.slice(1), {preferLocaL: true, stdio: 'inherit'});
-  }
-}
 
 const buildConfig = require('./config/build');
 

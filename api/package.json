@@ -1,0 +1,32 @@
+{
+  "name": "my-ig-api",
+  "version": "0.0.0",
+  "contributors": [
+    "Vadim Sorokin <k500i90@gmail.com>"
+  ],
+  "scripts": {
+    "start": "node run.js -t dev",
+    "pgadmin": "node run.js -t pgadmin",
+    "db-rebuild": "node run.js -t db-rebuild",
+    "dev": "NODE_ENV=development SERVER_TYPE=dev nodemon --ignore 'new_seeds.json' server.js",
+    "local": "SERVER_TYPE=local nodemon server.js",
+    "migration:create": "SERVER_TYPE=local sequelize migration:create --config config/db.json",
+    "migrate": "SERVER_TYPE=local sequelize db:migrate --config config/db.json",
+    "migrate:undo": "SERVER_TYPE=local sequelize db:migrate:undo --config config/db.json",
+    "import": "node jobs/feed_import.js",
+    "api-bash": "docker exec -ti kf-api /bin/bash",
+    "ver": "npm version --no-git-tag-version patch"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "concurrently": "^5.1.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "jsend": "^1.1.0",
+    "nodemon": "^2.0.2",
+    "opn": "^6.0.0",
+    "pg": "^8.0.0",
+    "pg-native": "^3.0.0"
+  }
+}
