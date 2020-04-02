@@ -91,7 +91,7 @@ class dbService {
     return this.connect().then(() => {
       console.log('Database connection successfully established');
       this.createDatabase();
-      return pgClient;
+      pgClient.end();
     });
   }
 }
