@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "MajorMonoDisplay-Regular";
+    src: url("MajorMonoDisplay-Regular.eot");
+    src: url("MajorMonoDisplay-Regular.eot?#iefix") format("embedded-opentype"),
+         url("MajorMonoDisplay-Regular.woff2") format("woff2"),
+         url("MajorMonoDisplay-Regular.woff") format("woff"),
+         url("MajorMonoDisplay-Regular.ttf") format("ttf"),
+         url("MajorMonoDisplay-Regular.svg#MajorMonoDisplay-Regular") format("svg");
+    font-style: normal;
+    font-weight: 300;
+}

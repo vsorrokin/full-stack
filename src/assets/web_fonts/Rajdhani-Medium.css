@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Rajdhani-Medium";
+    src: url("Rajdhani-Medium.eot");
+    src: url("Rajdhani-Medium.eot?#iefix") format("embedded-opentype"),
+         url("Rajdhani-Medium.woff2") format("woff2"),
+         url("Rajdhani-Medium.woff") format("woff"),
+         url("Rajdhani-Medium.ttf") format("ttf"),
+         url("Rajdhani-Medium.svg#Rajdhani-Medium") format("svg");
+    font-style: normal;
+    font-weight: normal;
+}

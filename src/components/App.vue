@@ -1,22 +1,19 @@
 <template lang="jade">
-    #app.body-container
-      .navbar
-      router-view
+  #app.body-container
+    v-navbar
+    router-view
 </template>
 
 <script>
 import '@/assets/stylesheets/main.styl';
 
+import VNavbar from '#c/Navbar';
+
 export default {
   name: 'App',
 
-  data() {
-    return {
-    };
-  },
-
   components: {
-
+    VNavbar
   }
 }
 </script>

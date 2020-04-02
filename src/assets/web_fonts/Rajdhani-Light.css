@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Rajdhani-Light";
+    src: url("Rajdhani-Light.eot");
+    src: url("Rajdhani-Light.eot?#iefix") format("embedded-opentype"),
+         url("Rajdhani-Light.woff2") format("woff2"),
+         url("Rajdhani-Light.woff") format("woff"),
+         url("Rajdhani-Light.ttf") format("ttf"),
+         url("Rajdhani-Light.svg#Rajdhani-Light") format("svg");
+    font-style: normal;
+    font-weight: 300;
+}

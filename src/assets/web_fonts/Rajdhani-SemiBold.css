@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Rajdhani-SemiBold";
+    src: url("Rajdhani-SemiBold.eot");
+    src: url("Rajdhani-SemiBold.eot?#iefix") format("embedded-opentype"),
+         url("Rajdhani-SemiBold.woff2") format("woff2"),
+         url("Rajdhani-SemiBold.woff") format("woff"),
+         url("Rajdhani-SemiBold.ttf") format("ttf"),
+         url("Rajdhani-SemiBold.svg#Rajdhani-SemiBold") format("svg");
+    font-style: normal;
+    font-weight: demi;
+}

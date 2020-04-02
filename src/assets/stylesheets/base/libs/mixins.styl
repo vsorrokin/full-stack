@@ -60,6 +60,19 @@ vt-middle()
   top: 50%
   transform: translateY(-50%)
 
+vt-dev-line()
+  position: relative
+  &:after
+    content: ''
+    height: 1px
+    width: 100%
+    background-color: red
+    left: 0
+    top: 0
+    bottom: 0
+    margin: auto
+    position: absolute
+
 size-flex(settings, prop = 'font-size')
   @media(max-width: (settings.min / (settings.max / settings.width)))
     {prop}: settings.min
