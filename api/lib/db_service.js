@@ -42,7 +42,11 @@ class DBService {
   }
 
   createDatabase() {
-    this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
+    try {
+      this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
+    } catch (e) {
+
+    }
   }
 
   initDbConnection(options) {

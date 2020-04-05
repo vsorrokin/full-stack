@@ -1,4 +1,9 @@
+const path = require('path');
+
 module.exports = {
   test: /\.vue$/,
-  loader: 'vue-loader'
+  use: [
+    'vue-loader',
+    path.resolve('build/loaders/vue_preprocess.js')
+  ]
 };

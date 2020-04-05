@@ -10,5 +10,6 @@ module.exports = {
   admin: {
     email: 'email@example.org',
     password: ''
-  }
+  },
+  jwtSecret: ''
 };

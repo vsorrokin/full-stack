@@ -1,8 +1,7 @@
-// Express body parse for json requests support
 const bodyParser = require('body-parser');
 const express = require('express');
-// Lib for formatted response like {status: "success", data: {...}}
 const jsend = require('jsend');
+const passport = require('passport');
 
 const router = module.exports = express.Router();
 
@@ -11,4 +10,5 @@ router.use(bodyParser.json());
 router.use(jsend.middleware);
 
 // Connect routes
-router.use('/users', require('./users'));
+router.use('/auth', require('./auth'));
+router.use('/users', passport.authenticate('jwt', {session: false}), require('./users'));
