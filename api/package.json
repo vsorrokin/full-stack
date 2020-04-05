@@ -6,27 +6,32 @@
   ],
   "scripts": {
     "start": "node run.js -t dev",
+    "migrate": "node run.js -t migrate",
+    "migrate:undo": "node run.js -t migrate:undo",
+    "seed": "node run.js -t seed",
     "pgadmin": "node run.js -t pgadmin",
-    "db-rebuild": "node run.js -t db-rebuild",
-    "dev": "NODE_ENV=development SERVER_TYPE=dev nodemon --ignore 'new_seeds.json' server.js",
-    "local": "SERVER_TYPE=local nodemon server.js",
-    "migration:create": "SERVER_TYPE=local sequelize migration:create --config config/db.json",
-    "migrate": "SERVER_TYPE=local sequelize db:migrate --config config/db.json",
-    "migrate:undo": "SERVER_TYPE=local sequelize db:migrate:undo --config config/db.json",
-    "import": "node jobs/feed_import.js",
-    "api-bash": "docker exec -ti kf-api /bin/bash",
-    "ver": "npm version --no-git-tag-version patch"
+    "db:rebuild": "node run.js -t db:rebuild"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "bluebird": "^3.7.2",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
+    "ioredis": "^4.16.1",
     "jsend": "^1.1.0",
+    "knex": "^0.20.13",
     "nodemon": "^2.0.2",
     "opn": "^6.0.0",
     "pg": "^8.0.0",
-    "pg-native": "^3.0.0"
+    "pg-native": "^3.0.0",
+    "recursive-readdir-sync": "^1.0.6",
+    "redis": "^3.0.2",
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1",
+    "sequelize-redis-cache": "^2.0.1",
+    "sql-formatter": "^2.3.3",
+    "sql-tagged-template-literal": "^1.0.2"
   }
 }

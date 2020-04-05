@@ -4,80 +4,45 @@ const pgNative = require('pg-native');
 const serviceConfig = require('../config/service');
 const credentials = require('../config/credentials');
 
-const settings = {
-  maxConnectionRetryCount: 20,
-  connectionTryPauseBeforeNext: 5000
-};
+class DBService {
+  constructor() {
+    this.pgClient = new pgNative();
 
-const pgClient = new pgNative();
-
-
-class dbService {
-  connect() {
-    return new Promise((resolve, reject) => {
-      this.tryToConnect(resolve, reject);
-    });
+    this.settings = {
+      maxConnectionRetryCount: 20,
+      connectionTryPauseBeforeNext: 5000
+    };
   }
 
-  tryToConnect(resolve, reject, retriesCount) {
-    if (retriesCount === undefined) retriesCount = 1;
-
+  async connect(retriesCount = 1) {
     if (retriesCount > 1) {
       console.log('Trying to connect to the database. Try number:', retriesCount);
     }
 
-    if (retriesCount >= settings.maxConnectionRetryCount) {
-      console.log("Can't connect to the Database. Please check your connection settings in config/credentials.js");
-      reject();
-      return;
+    if (retriesCount >= this.settings.maxConnectionRetryCount) {
+      throw "Can't connect to the Database. Please check your connection settings in config/credentials.js";
     }
 
     try {
-      pgClient.connectSync(`
+      this.pgClient.connectSync(`
         dbname=postgres
         host=${serviceConfig.postgres.host}
         user=${credentials.postgres.user}
         password=${credentials.postgres.password}
         port=${serviceConfig.postgres.port}
       `);
-      resolve();
+      return true;
     } catch(e) {
-      console.log(e);
-      setTimeout(() => {
-        this.tryToConnect(resolve, reject, ++retriesCount);
-      }, settings.connectionTryPauseBeforeNext);
+      console.log('DB CONNECTION ERROR', e);
 
+      await new Promise((resolve) => setTimeout(resolve, this.settings.connectionTryPauseBeforeNext));
+
+      await this.connect(++retriesCount);
     }
-
   }
 
   createDatabase() {
-    pgClient.querySync(`
-      CREATE EXTENSION IF NOT EXISTS dblink;
-      DO
-      $do$
-      BEGIN
-         IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${serviceConfig.postgres.name}') THEN
-            PERFORM dblink_exec('dbname=' || current_database()  -- current db
-                              , 'CREATE DATABASE ${serviceConfig.postgres.name}');
-         END IF;
-      END
-      $do$;
-    `);
-
-    //this.createExtensions();
-  }
-
-  createExtensions() {
-    pgClient.connectSync(`
-      dbname=${serviceConfig.postgres.name}
-      host=${serviceConfig.postgres.host}
-      user=${credentials.postgres.user}
-      password=${credentials.postgres.password}
-      port=${serviceConfig.postgres.port}
-    `);
-
-    pgClient.querySync('CREATE EXTENSION IF NOT EXISTS postgis;');
+    this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
   }
 
   initDbConnection(options) {
@@ -91,9 +56,9 @@ class dbService {
     return this.connect().then(() => {
       console.log('Database connection successfully established');
       this.createDatabase();
-      pgClient.end();
+      this.pgClient.end();
     });
   }
 }
 
-module.exports = new dbService();
+module.exports = new DBService();

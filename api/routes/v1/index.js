@@ -11,9 +11,4 @@ router.use(bodyParser.json());
 router.use(jsend.middleware);
 
 // Connect routes
-router.use('/classifier', require('./classifier'));
-router.use('/lots', require('./lots'));
-router.use('/lots_count', require('./lots_count'));
-router.use('/lot_of_month', require('./lot_of_month'));
-router.use('/forms', require('./forms'));
-router.use('/presentations', require('./presentations'));
+router.use('/users', require('./users'));

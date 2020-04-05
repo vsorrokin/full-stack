@@ -16,15 +16,29 @@ const dockerComposeEnv = `cross-env
      PGADMIN_USER=${credentials.pgadmin.user}
      PGADMIN_PASSWORD=${credentials.pgadmin.password}
 
-     POSTGRES_DB_NAME=${serviceConfig.postgres.name}
      POSTGRES_PORT=${serviceConfig.postgres.port}
      POSTGRES_USER=${credentials.postgres.user}
-     POSTGRES_PASSWORD=${credentials.postgres.password}`;
+     POSTGRES_PASSWORD=${credentials.postgres.password}
 
+     REDIS_PORT=${serviceConfig.redis.port}`;
+
+const sequelizeConfig = `--url 'postgres://${credentials.postgres.user}:${credentials.postgres.password}@${serviceConfig.postgres.host}:${serviceConfig.postgres.port}/${serviceConfig.postgres.name}'`;
 
 switch (options.task) {
-  case 'db-rebuild':
-    run(`${dockerComposeEnv} docker-compose up --force-recreate`);
+  case 'seed':
+    run(`sequelize db:seed:all ${sequelizeConfig}`)
+    break;
+
+  case 'migrate:undo':
+    run(`sequelize db:migrate:undo ${sequelizeConfig}`)
+    break;
+
+  case 'migrate':
+    run(`sequelize db:migrate ${sequelizeConfig}`)
+    break;
+
+  case 'db:rebuild':
+    run(`${dockerComposeEnv} docker-compose build`);
     break;
 
   case 'dev':

@@ -8,6 +8,9 @@ const port = 3333;
 // Library for trying to connect to the db and to create initial database if not exists
 const dbService = require('./lib/db_service');
 
+// Library for trying to connect to the redis
+const redisService = require('./lib/redis_service');
+
 // Save environment to the variable
 const env = process.env.NODE_ENV || 'development';
 
@@ -29,7 +32,7 @@ if (env === 'development') {
 }
 
 // Include routes
-//app.use('/', require('./routes'));
+app.use('/', require('./routes'));
 
 // Send 404 status if route not found
 app.use((req, res) => res.status(404).end());
@@ -40,4 +43,5 @@ app.use((req, res) => res.status(404).end());
   });
 
   await dbService.initDbConnection();
+  await redisService.initRedisConnection();
 })();

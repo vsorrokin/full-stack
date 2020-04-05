@@ -6,5 +6,9 @@ module.exports = {
   pgadmin: {
     user: 'email@example.org',
     password: ''
+  },
+  admin: {
+    email: 'email@example.org',
+    password: ''
   }
 };
