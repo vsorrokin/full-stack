@@ -2,6 +2,8 @@
 
 webfont($main-font-family, 'Rajdhani-Regular', 400, normal)
 
+webfont($main-font-family, 'Rajdhani-SemiBold', 600, normal)
+
 webfont($title-font-family, 'MajorMonoDisplay-Regular', 400, normal)
 
 h1, h2, h3, h4, h5, h6, p
@@ -27,25 +29,16 @@ h5
   font-weight: 700
   margin-bottom: 3px
 
-.small-title
-  font-size: 13px
-  opacity: .5
-
-.break-all
-  word-break: break-all
-
-.upper-title
-  font-size: 12px
-  text-transform: uppercase
-  opacity: .5
-  margin-bottom: 15px
-  padding-left: 20px
-  letter-spacing: 0.08em
-
-.break-all
-  word-break: break-all
-
 icomoonfont()
+
+.icon-spinner:before
+  content: "\e903"
+
+.icon-check:before
+  content: "\e904"
+
+.icon-error:before
+  content: "\e902"
 
 .icon-telegram:before
   content: "\e900"

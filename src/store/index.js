@@ -10,7 +10,8 @@ Vue.use(Vuex);
 const getters = Getters(Vue.prototype);
 
 const state = {
-
+  token: null,
+  mounted: false
 };
 
 export function createStore() {

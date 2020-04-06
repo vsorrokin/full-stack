@@ -1,8 +1,10 @@
 import Vue from 'vue';
 
+import '@/plugins/notifications';
+
 import { createApp } from './app';
 
-const buildConfig = require('@/../config/build');
+const buildConfig = require('@/../config/main');
 
 if (buildConfig.mode === 'SPA') {
   const DOMRoot = document.createElement("div");
@@ -33,3 +35,19 @@ if (window.__INITIAL_STATE__) {
 router.onReady(() => {
   app.$mount('#app');
 });
+
+
+if (module.hot) {
+  const api = require('vue-hot-reload-api');
+  const Vue = require('vue');
+
+  api.install(Vue);
+
+  if (!api.compatible) {
+    throw new Error(
+      'vue-hot-reload-api is not compatible with the version of Vue you are using.',
+    );
+  }
+
+  module.hot.accept();
+}

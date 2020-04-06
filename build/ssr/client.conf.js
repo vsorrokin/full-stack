@@ -6,7 +6,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const baseConfig = require(`../spa/${isProd ? 'prod' : 'base'}.conf.js`);
 
-const buildConfig = require('../../config/build');
+const buildConfig = require('../../config/main');
 
 module.exports = merge(baseConfig, {
   entry: './entry-client.js',

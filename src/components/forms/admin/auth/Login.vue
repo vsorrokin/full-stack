@@ -21,7 +21,7 @@
         )
 
         .box-content.with-form-btn
-          button.btn(type="submit" :disabled="$v.$invalid") Next
+          button.btn(type="submit" :disabled="$v.$invalid || isLoading") Log me in
 </template>
 
 <script>
@@ -67,7 +67,6 @@
           email: '',
           password: ''
         },
-
         isLoading: false,
         notification: null
       }
@@ -75,51 +74,23 @@
 
     methods: {
 
-      notify(step) {
-        const texts = {
-          search: 'Searching email',
-          errorNotFound: 'Email not found',
-          success: 'Email found'
-        };
-
-        return this.$helpers.notify({texts, step, self: this, overlay: false, errorDuration: 2000});
-      },
-
-      getEntity() {
-        return this.$UDCAPI.call('/auth/api', {
-          command: 'get_entity_by_email',
-          args: {
-            email: this.formData.email
+      async onSubmitValidationSuccess() {
+        const result = await this.$helpers.run({
+          scope: this,
+          endpoint: 'auth/login',
+          data: {
+            email: this.formData.email,
+            password: this.formData.password,
+          },
+          msg: {
+            start: 'Authorizing',
+            error: 'dddd',
+            success: 'Login success'
           }
         });
-      },
-
-      async onSubmitValidationSuccess() {
-        if (this.isLoading) return;
-        this.isLoading = true;
-
-        this.notify('search');
-
-        let result;
-        try {
-          result = await this.getEntity();
-        } catch (e) {
-          console.error(e);
-          this.notify('errorNotFound');
-          this.isLoading = false;
-          this.notification = null;
-          return;
-        }
-
-        this.notify('success');
-        this.isLoading = false;
-        this.notification = null;
-
-        if (result.data.identities.length > 1) {
-          this.$helpers.go('login', {id: result.data.person_id});
-        } else {
-          this.$helpers.go('login', {id: result.data.person_id, keyId: result.data.identities[0].id});
-        }
+        
+        localStorage.setItem('token', result.token);
+        this.$store.commit('token', result.token);
       }
     },
 

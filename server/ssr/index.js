@@ -9,7 +9,7 @@ const resolve            = file => path.resolve(__dirname, file);
 const expressStaticGzip  = require("express-static-gzip");
 const listen             = require('../listen');
 
-const buildConfig = require('../../config/build');
+const buildConfig = require('../../config/main');
 
 // Settings
 const settings = {

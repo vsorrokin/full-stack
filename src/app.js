@@ -8,6 +8,9 @@ import '@/plugins/axios';
 import '@/plugins/vuelidate';
 import '@/plugins/debounce';
 
+import '@/lib/helpers';
+import '@/lib/api';
+
 
 import VInput from '#c/ui/Input';
 Vue.component('VInput', VInput);
@@ -19,7 +22,7 @@ export function createApp(context) {
   const router = createRouter();
   const store = createStore();
 
-  sync(store, router);
+  //sync(store, router);
 
   const app = new Vue({
     router,

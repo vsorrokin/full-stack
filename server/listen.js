@@ -5,7 +5,7 @@ const path        = require('path');
 const opn         = require('opn');
 const https       = require('https');
 const resolve     = file => path.resolve(__dirname, file);
-const buildConfig = require('../config/build');
+const buildConfig = require('../config/main');
 
 module.exports = function(app, isProd = true) {
   if (!buildConfig.HTTPS) {

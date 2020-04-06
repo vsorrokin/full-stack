@@ -6,7 +6,7 @@ const options = commandLineArgs([
   { name: 'task', alias: 't', type: String, defaultOption: 'dev' }
 ]);
 
-const buildConfig = require('./config/build');
+const buildConfig = require('./config/main');
 
 switch (options.task) {
   case 'dev':

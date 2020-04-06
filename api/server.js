@@ -6,7 +6,7 @@ const passport    = require('passport');
 
 require('./passport');
 
-const port = 3333;
+const serviceConfig = require('./config/service');
 
 // Library for trying to connect to the db and to create initial database if not exists
 const dbService = require('./lib/db_service');
@@ -41,8 +41,8 @@ app.use('/', require('./routes'));
 app.use((req, res) => res.status(404).end());
 
 (async () => {
-  app.listen(port, function () {
-    console.log(`API ${env} server listening on port ${port}!`);
+  app.listen(serviceConfig.server.port, function () {
+    console.log(`API ${env} server listening on port ${serviceConfig.server.port}!`);
   });
 
   await dbService.initDbConnection();

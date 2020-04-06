@@ -1,9 +1,11 @@
-import { createApp } from './app'
+import { createApp } from './app';
+
+import '@/plugins/notifications_ssr';
 
 export default context => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp()
-    
+
     router.push(context.url)
 
     router.onReady(() => {

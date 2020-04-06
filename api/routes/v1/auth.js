@@ -18,8 +18,8 @@ router.post('/login', (req, res, next) => {
       first_name: user.first_name,
       last_name: user.last_name
     };
-    
-    const token = jwt.sign(user, credentials.jwtSecret);
+
+    const token = jwt.sign(user, credentials.jwtSecret, {expiresIn: '30m'});
 
     return res.jsend.success({user, token});
 
