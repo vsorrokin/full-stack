@@ -12,3 +12,4 @@ router.use(jsend.middleware);
 // Connect routes
 router.use('/auth', require('./auth'));
 router.use('/users', passport.authenticate('jwt', {session: false}), require('./users'));
+router.use('/upload', passport.authenticate('jwt', {session: false}), require('./upload'));

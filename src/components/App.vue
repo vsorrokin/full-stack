@@ -20,6 +20,19 @@ export default {
   mounted() {
     this.$store.commit('token', localStorage.getItem('token'));
     this.$store.commit('mounted', true);
+    
+    this.initRouter();
+  },
+  
+  methods: {
+    initRouter() {
+      this.$nextTick(() => {
+        if (!this.$store.state.token && !this.$route.meta.isPublic) {
+          this.$router.push({name: 'home'});
+          return;
+        }
+      });
+    }
   },
 
   components: {

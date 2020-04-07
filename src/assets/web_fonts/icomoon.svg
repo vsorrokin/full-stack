@@ -53,6 +53,12 @@
       <glyph glyph-name="uniE904" unicode="&#xE904;" d="M325 200L942 817L1024 735L325 36L0 361L82 443L325 200Z"  horiz-adv-x="1024" vert-adv-y="1024"  />
 
       
+      <glyph glyph-name="uniE905" unicode="&#xE905;" d="M814 846L394 427L814 7L722-85L210 427L722 939L814 846Z"  horiz-adv-x="1024" vert-adv-y="1024"  />
+
+      
+      <glyph glyph-name="uniE906" unicode="&#xE906;" d="M925 753L99 753L99 960L925 960L925 753M512 520L74 82L220-64L512 228L804-64L950 82L512 520Z"  horiz-adv-x="1024" vert-adv-y="1024"  />
+
+      
 
   </font>
   </defs>

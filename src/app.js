@@ -22,6 +22,8 @@ export function createApp(context) {
   const router = createRouter();
   const store = createStore();
 
+  Vue.prototype.store = store;
+
   //sync(store, router);
 
   const app = new Vue({

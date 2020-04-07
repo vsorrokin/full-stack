@@ -1,27 +1,26 @@
 <template lang="jade">
   #admin-login
     .complex-title
+      router-link.bordered-icon(:to="{name: 'admin'}"): i.icon-arrow-left
       .text
-        h4 Log In
-        p.subtitle Identify yourself
+        h4 New video
+        p.subtitle Add new video to feed
     .box
       form(@submit.prevent="onSubmit")
-        v-input.box-content(
-          label="Email"
-          type="email"
-          placeholder="Your email address"
-          input-model="email"
-        )
+        .box-content
+          v-upload(:settings="{label: 'Select video', endpoint: 'video'}")
+          
+        .box-content
+          v-upload(:settings="{label: 'Select cover'}")
         
         v-input.box-content(
-          label="Password"
-          type="password"
-          placeholder="Your password"
-          input-model="password"
+          label="Song link"
+          placeholder="Link to song from video"
+          input-model="songLink"
         )
 
         .box-content.with-form-btn
-          button.btn(type="submit" :disabled="$v.$invalid || isLoading") Log me in
+          button.btn(type="submit" :disabled="$v.$invalid || isLoading") Create and save
 </template>
 
 <script>
@@ -29,24 +28,16 @@
 
   import ValidationConfigMixin from '@/mixins/ValidationConfig';
   import FormSubmitMixin from '@/mixins/FormSubmit';
+  
+  import VUpload from '#c/ui/Upload';
 
   const validationRules = function(self) {
     return {
       formData: {
-        email: {
+        video: {
           required: {
             rule: required,
-            message: 'Email is required'
-          },
-          email: {
-            rule: email,
-            message: 'Enter correct email'
-          }
-        },
-        password: {
-          required: {
-            rule: required,
-            message: 'Password is required'
+            message: 'Video is required'
           }
         }
       }
@@ -54,7 +45,7 @@
   };
 
   export default {
-    name: 'login-form',
+    name: 'new-post-form',
 
     mixins: [
       FormSubmitMixin,
@@ -64,8 +55,9 @@
     data() {
       return {
         formData: {
-          email: '',
-          password: ''
+          video: null,
+          cover: null,
+          songLink: null
         },
         isLoading: false,
         notification: null
@@ -73,7 +65,6 @@
     },
 
     methods: {
-
       async onSubmitValidationSuccess() {
         const result = await this.$helpers.run({
           scope: this,
@@ -84,12 +75,10 @@
           },
           msg: {
             start: 'Authorizing',
-            error: 'dddd',
+            error: 'Invalid credentials',
             success: 'Login success'
           }
         });
-        
-        if (!result) return;
         
         localStorage.setItem('token', result.token);
         this.$store.commit('token', result.token);
@@ -97,7 +86,7 @@
     },
 
     components: {
-
+      VUpload
     }
   };
 </script>
