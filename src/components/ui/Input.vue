@@ -25,6 +25,7 @@
             v-debounce="debounce"
           )
           input(
+            v-else
             :placeholder="placeholder"
             :readonly="readonly"
             :disabled="disabled"

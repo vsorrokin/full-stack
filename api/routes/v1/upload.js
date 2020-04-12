@@ -3,6 +3,8 @@ const multer  = require('multer');
 const path    = require('path');
 const filesController = require('../../controllers/files');
 
+const config = require('../../config/main');
+
 const router = module.exports = express.Router();
 
 var storage = multer.diskStorage({
@@ -14,26 +16,42 @@ var storage = multer.diskStorage({
   }
 })
 
-var upload = multer({
-  storage,
-  limits: {
-    fileSize: (1024 * 1024) * 100, //100MB
-    files: 1
+router.post('/:type', (req, res, next) => {
+
+  const type = req.params.type;
+  const allowedTypes = ['video', 'cover'];
+
+  if (!allowedTypes.includes(type)) {
+    return res.status(400).jsend.fail({code: 'incorrect_upload_type'});
   }
-});
 
-router.post('/video', upload.single('file'), (req, res, next) => {
-  const file = {
-    name: req.file.originalname,
-    type: req.file.mimetype,
-    size: req.file.size,
-    local_name: req.file.filename
-  };
+  var upload = multer({
+    storage,
+    limits: {
+      fileSize: (1024 * 1024) * config.maxFileSize[type], //100MB
+      files: 1
+    }
+  }).single('file');
 
-  filesController.create(file).then(files => {
-    res.jsend.success({
-      ...file,
-      id: files[0].id
-    });
-  }, next);
+  upload(req, res, function(err) {
+
+      if(err) {
+        return res.status(400).jsend.fail({code: err.code, message: err.message});
+      }
+
+      const file = {
+        name: req.file.originalname,
+        type: req.file.mimetype,
+        size: req.file.size,
+        local_name: req.file.filename
+      };
+
+      filesController.create(file).then(files => {
+        res.jsend.success({
+          ...file,
+          id: files[0].id
+        });
+      }, next);
+  });
+
 });

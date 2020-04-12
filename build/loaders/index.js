@@ -4,6 +4,7 @@ const vue = require('./vue');
 const pug = require('./pug');
 const font = require('./font');
 const image = require('./image');
+const css = require('./css');
 
 module.exports = {
   babel,
@@ -11,5 +12,6 @@ module.exports = {
   vue,
   pug,
   font,
-  image
+  image,
+  css
 };

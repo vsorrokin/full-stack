@@ -37,4 +37,4 @@ Vue.directive('perspective', {
       inside = true;
     });
   }
-})
+});

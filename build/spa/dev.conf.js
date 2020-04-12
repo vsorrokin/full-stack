@@ -25,7 +25,8 @@ module.exports = merge(baseConfig, {
       warnings: true,
       errors: true
     },
-    open: true
+    open: true,
+    contentBase: path.resolve('./public')
   },
 
   plugins: [

@@ -30,7 +30,8 @@ module.exports = {
       loaders.vue,
       loaders.pug,
       loaders.font,
-      loaders.image
+      loaders.image,
+      loaders.css
     ]
   },
 

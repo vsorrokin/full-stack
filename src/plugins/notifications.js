@@ -85,9 +85,9 @@ Vue.use(function(Vue) {
             return this.$notification.show({
               text: this.$notification.getTextHTML(text, 'error'),
               type: 'error',
-              overlay: true,
+              overlay: false,
               closeByAPIOnly,
-              duration: keep ? -1 : 30000
+              duration: 2000
             });
           }
         }

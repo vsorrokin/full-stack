@@ -19,7 +19,7 @@ class API {
   }
 
   upload(settings) {
-    const {endpoint, file, onUploadProgress} = settings;
+    const {type, file, onUploadProgress} = settings;
 
     const formData = new FormData();
     formData.append("file", file);
@@ -30,7 +30,7 @@ class API {
     const cancelTokenSource = this.vue.$http.CancelToken.source();
     requestOptions.cancelToken = cancelTokenSource.token;
 
-    const promise = this.vue.$http.post(this.getURL(`upload/${endpoint}`), formData, requestOptions);
+    const promise = this.vue.$http.post(this.getURL(`upload/${type}`), formData, requestOptions);
 
     return {
       promise,
