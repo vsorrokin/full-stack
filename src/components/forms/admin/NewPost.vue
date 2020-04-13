@@ -100,11 +100,11 @@
       async onSubmitValidationSuccess() {
         const result = await this.$helpers.run({
           scope: this,
-          endpoint: 'post',
+          endpoint: 'post/',
           data: {
-            video: this.formData.video.id,
-            cover: this.formData.cover.id,
-            songLink: this.formData.songLink,
+            video_id: this.formData.video.id,
+            cover_id: this.formData.cover.id,
+            song_link: this.formData.songLink,
             description: this.formData.description
           },
           msg: {

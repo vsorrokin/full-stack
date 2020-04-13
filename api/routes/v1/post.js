@@ -1,15 +1,14 @@
 const express = require('express');
-//const filesController = require('../../controllers/files');
+const postsController = require('../../controllers/posts');
 
 const router = module.exports = express.Router();
 
 
 router.post('/', (req, res, next) => {
 
-  filesController.create(file).then(files => {
+  postsController.create(req.body).then(posts => {
     res.jsend.success({
-      ...file,
-      id: files[0].id
+      post: posts[0]
     });
   }, next);
 
