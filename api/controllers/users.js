@@ -17,7 +17,9 @@ class UsersController {
       }
     };
 
-    const result = await cachedQueryExecutor.findAll(queryParams);
+    const result = await cachedQueryExecutor.findAll(queryParams, {
+      raw: true
+    });
 
     return result[0];
   }
@@ -32,7 +34,9 @@ class UsersController {
       }
     };
 
-    const result = await cachedQueryExecutor.findAll(queryParams);
+    const result = await cachedQueryExecutor.findAll(queryParams, {
+      raw: true
+    });
 
     return result[0];
   }
@@ -45,7 +49,9 @@ class UsersController {
       where: {}
     };
 
-    return cachedQueryExecutor.findAll(queryParams);
+    return cachedQueryExecutor.findAll(queryParams, {
+      raw: true
+    });
   }
 }
 

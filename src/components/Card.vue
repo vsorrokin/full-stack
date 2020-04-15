@@ -10,7 +10,7 @@ export default {
   name: 'card',
 
   props: {
-    settings: {
+    data: {
       type: Object,
       required: true
     }
@@ -18,7 +18,9 @@ export default {
 
   computed: {
     bg() {
-      return {'background-image': `url(${this.settings.preview})`}
+      const coverURL = this.$API.getURL(`file/${this.data.cover_id}`);
+      
+      return {'background-image': `url(${coverURL})`}
     }
   }
 }

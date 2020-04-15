@@ -1,20 +1,22 @@
 <template lang="jade">
   .cards
-    .card-list-item(v-for="video in videos" :key="video.id")
-      v-card(:settings="{preview: video.preview}")
+    .card-list-item(v-for="video in data" :key="video.id")
+      v-card(:data="video")
 </template>
 
 <script>
 import VCard from '#c/Card';
 
-import videos from '@/store/mock/videos';
-
 export default {
   name: 'card',
-
-  data() {
-    return {
-      videos
+  
+  props: {
+    data: {
+      type: Array,
+      required: true,
+      default() {
+        return [];
+      }
     }
   },
 

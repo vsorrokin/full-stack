@@ -38,8 +38,12 @@ class API {
     };
   }
 
-  getURL(endpoint) {
+  static getURL(endpoint) {
     return `${config.API.root}/v1/${endpoint}`;
+  }
+
+  getURL() {
+    return API.getURL(...arguments);
   }
 
   post(endpoint, data) {

@@ -9,7 +9,7 @@ const router = module.exports = express.Router();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.resolve('../../../web_storage/my_ig'));
+    cb(null, config.fileStoragePath);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);

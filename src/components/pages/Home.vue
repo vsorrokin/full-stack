@@ -1,7 +1,7 @@
 <template lang="jade">
   .content-wrap
     .content
-      v-cards
+      v-cards(:data="$store.state.posts")
 
 </template>
 
@@ -11,13 +11,9 @@ import VCards from '#c/Cards';
 export default {
   name: 'home-page',
 
-  // async asyncData ({ store, route }) {
-  //   const data = await new Promise(function(resolve, reject) {
-  //     setTimeout(() => resolve(true), 100);
-  //   });
-  //
-  //   return data;
-  // },
+  asyncData ({ store, route }) {
+    return store.dispatch('posts');
+  },
 
   components: {
     VCards

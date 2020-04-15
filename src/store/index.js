@@ -11,12 +11,11 @@ const getters = Getters(Vue.prototype);
 
 const state = {
   token: null,
-  mounted: false
+  mounted: false,
+  posts: []
 };
 
 export function createStore() {
-  const vue = Vue.prototype;
-
   return new Vuex.Store({
     state,
     mutations,
