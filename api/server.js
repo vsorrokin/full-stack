@@ -4,14 +4,23 @@ const compression = require('compression');
 const path        = require('path');
 const passport    = require('passport');
 
-require('./passport');
+// GraphQL
+const { ApolloServer, gql } = require("apollo-server-express");
+const typeDefs = require("./graphql/schema");
+const resolvers = require("./graphql/resolvers");
+const db = require("./models");
+const apolloServer = new ApolloServer({
+  typeDefs: gql(typeDefs),
+  resolvers,
+  context: { db }
+});
+
+require('./lib/passport');
+
 
 const serviceConfig = require('./config/service');
 
-// Library for trying to connect to the db and to create initial database if not exists
 const dbService = require('./lib/db_service');
-
-// Library for trying to connect to the redis
 const redisService = require('./lib/redis_service');
 
 // Save environment to the variable
@@ -24,6 +33,8 @@ if (env === 'development') {
 
 // Init express
 const app = express();
+
+apolloServer.applyMiddleware({ app });
 
 // Enable gzip compression for response body
 // @TODO: better to do that using nginx proxy
@@ -41,10 +52,10 @@ app.use('/', require('./routes'));
 app.use((req, res) => res.status(404).end());
 
 (async () => {
+  await redisService.initRedisConnection();
+  await dbService.initDbConnection();
+
   app.listen(serviceConfig.server.port, function () {
     console.log(`API ${env} server listening on port ${serviceConfig.server.port}!`);
   });
-
-  await redisService.initRedisConnection();
-  await dbService.initDbConnection();
 })();

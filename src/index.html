@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Rrobad travel</title>
-    <!-- <link rel="icon" href="/static/images/favicon.png" type="image/png"/> -->
+    {{{ renderResourceHints() }}}
+    {{{ renderStyles() }}}
   </head>
   <body>
     <!--vue-ssr-outlet-->
+    {{{ renderState() }}}
+    {{{ renderState({ contextKey: 'apolloState', windowKey: '__APOLLO_STATE__' }) }}}
+    {{{ renderScripts() }}}
   </body>
 </html>

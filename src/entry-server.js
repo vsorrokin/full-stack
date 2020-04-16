@@ -1,10 +1,12 @@
 import { createApp } from './app';
 
+import ApolloSSR from 'vue-apollo/ssr';
+
 import '@/plugins/notifications_ssr';
 
 export default context => {
   return new Promise((resolve, reject) => {
-    const { app, router, store } = createApp()
+    const { app, router, store, apolloProvider } = createApp()
 
     router.push(context.url)
 
@@ -30,6 +32,7 @@ export default context => {
         // serialized and injected into the HTML as `window.__INITIAL_STATE__`.
         context.state = store.state
 
+        context.apolloState = ApolloSSR.getStates(apolloProvider);
         resolve(app)
       }).catch(reject)
     }, reject)

@@ -3,6 +3,7 @@ import App from '@/components/App';
 import { createStore } from './store';
 import { sync } from 'vuex-router-sync';
 import { createRouter } from './router';
+import createApolloProvider from '@/plugins/apollo';
 
 import '@/plugins/axios';
 import '@/plugins/vuelidate';
@@ -26,11 +27,14 @@ export function createApp(context) {
 
   //sync(store, router);
 
+  const apolloProvider = createApolloProvider();
+
   const app = new Vue({
     router,
     store,
+    apolloProvider,
     render: h => h(App)
   });
 
-  return { app, router, store };
+  return { app, router, store, apolloProvider };
 }
