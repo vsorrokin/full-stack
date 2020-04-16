@@ -33,7 +33,7 @@ class DBService {
       `);
       return true;
     } catch(e) {
-      console.log('DB CONNECTION ERROR', e);
+      //console.log('DB CONNECTION ERROR', e);
 
       await new Promise((resolve) => setTimeout(resolve, this.settings.connectionTryPauseBeforeNext));
 

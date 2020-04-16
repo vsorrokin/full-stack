@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "node run.js -t dev",
+    "api": "cd api && yarn start",
     "build": "node run.js -t build",
     "prod": "node run.js -t prod",
     "https-gen": "cd ssl && mkcert localhost",

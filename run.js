@@ -3,7 +3,7 @@ const run = require('./common/cmd_runner');
 const commandLineArgs = require('command-line-args');
 
 const options = commandLineArgs([
-  { name: 'task', alias: 't', type: String, defaultOption: 'dev' }
+  { name: 'task', alias: 't', type: String, defaultValue: 'dev' }
 ]);
 
 const buildConfig = require('./config/main');
@@ -19,6 +19,8 @@ switch (options.task) {
         run('cross-env NODE_ENV=development webpack-dashboard -- webpack-dev-server --config ./build/spa/dev.conf.js');
         break;
     }
+
+    run('yarn api');
 
     break;
 

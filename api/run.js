@@ -5,7 +5,7 @@ const run = require('../common/cmd_runner');
 const commandLineArgs = require('command-line-args');
 
 const options = commandLineArgs([
-  { name: 'task', alias: 't', type: String, defaultOption: 'dev' }
+  { name: 'task', alias: 't', type: String, defaultValue: 'dev' }
 ]);
 
 const serviceConfig = require('./config/service');
@@ -45,7 +45,7 @@ switch (options.task) {
 
     run(`${dockerComposeEnv} docker-compose up`);
 
-    //run('nodemon server.js');
+    run('nodemon server.js');
 
     break;
 

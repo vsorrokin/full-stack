@@ -4,64 +4,57 @@ const Redis    = require('ioredis');
 const serviceConfig = require('../config/service');
 const credentials = require('../config/credentials');
 
-const settings = {
-  maxConnectionRetryCount: 20,
-  connectionTryPauseBeforeNext: 5000
-};
-
 class RedisService {
 
   constructor() {
-    this.retriesCount = 1;
+    this.settings = {
+      maxConnectionRetryCount: 20,
+      connectionTryPauseBeforeNext: 5000
+    };
+
+    process.on('uncaughtException', this.uncaughtException);
   }
 
-  onFail(resolve, reject) {
-    return () => {
-      clearTimeout(this.retryTimeout);
-      this.retryTimeout = setTimeout(() => {
+  uncaughtException(e) {
 
-        if (this.retriesCount > 1) {
-          console.log('Trying to connect to the redis. Try number:', this.retriesCount);
-        }
+  }
 
-        if (this.retriesCount >= settings.maxConnectionRetryCount) {
-          console.log("Can't connect to the redis. Please check your connection settings in config/local.json");
-          reject();
-          return;
-        }
+  async connect(retriesCount = 1) {
+    if (retriesCount > 1) {
+      console.log('Trying to connect to Redis. Try number:', retriesCount);
+    }
 
-        this.retriesCount++;
+    if (retriesCount >= this.settings.maxConnectionRetryCount) {
+      throw "Can't connect to Redis. Please check your connection settings in config/credentials.js";
+    }
 
-        self.tryToConnect(resolve, reject);
-      }, settings.connectionTryPauseBeforeNext);
+    try {
+
+      await new Promise(function(resolve, reject) {
+        new Redis({
+          port: serviceConfig.redis.port,
+          host: serviceConfig.redis.host,
+          retryStrategy: () => undefined
+        })
+        .on('error', reject)
+        .on('connect', resolve);
+      });
+
+      return true;
+
+    } catch(e) {
+      //console.log('REDIS CONNECTION ERROR', e);
+
+      await new Promise((resolve) => setTimeout(resolve, this.settings.connectionTryPauseBeforeNext));
+
+      await this.connect(++retriesCount);
     }
   }
 
-  connect() {
-    return new Promise((resolve, reject) => {
-      this.tryToConnect(resolve, reject);
-
-      //process.on('uncaughtException', this.onFail(resolve, reject));
-    });
-  }
-
-  tryToConnect(resolve, reject) {
-    new Redis({
-      port: serviceConfig.redis.port,
-      host: serviceConfig.redis.host,
-      retryStrategy: () => undefined
-    })
-    .on('error', err => {})
-    .on('connect', () => {
-      //process.removeEventListener('uncaughtException', this.onFail(resolve, reject));
-      resolve();
-    });
-
-    //Redis.Promise.onPossiblyUnhandledRejection(() => {});
-  }
 
   initRedisConnection() {
     return this.connect().then(() => {
+      process.removeListener('uncaughtException', this.uncaughtException)
       console.log('Redis connection successfully established');
     });
   }

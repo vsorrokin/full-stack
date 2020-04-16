@@ -45,6 +45,6 @@ app.use((req, res) => res.status(404).end());
     console.log(`API ${env} server listening on port ${serviceConfig.server.port}!`);
   });
 
-  await dbService.initDbConnection();
   await redisService.initRedisConnection();
+  await dbService.initDbConnection();
 })();

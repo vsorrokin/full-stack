@@ -8,7 +8,7 @@ module.exports = async function run(cmd) {
     const cmdParts = cmdsList[i].trim().split(' ');
 
     try {
-      await execa(cmdParts[0], cmdParts.slice(1), {preferLocaL: true, stdio: 'inherit'});
+      await execa(cmdParts[0], cmdParts.slice(1), {preferLocal: true, stdio: 'inherit'});
     } catch (e) {
       console.log(e);
     }
