@@ -10,4 +10,8 @@ module.exports = `
   type Query {
     posts: [Post!]!
   }
+
+  type Mutation {
+    createPost(video_id: Int!, cover_id:Int!, song_link: String, description: String): Post!
+  }
 `;

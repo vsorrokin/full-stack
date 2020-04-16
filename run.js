@@ -11,6 +11,8 @@ const buildConfig = require('./config/main');
 switch (options.task) {
   case 'dev':
 
+    run('yarn api');
+
     switch (buildConfig.mode) {
       case 'SSR':
         run('cross-env NODE_ENV=development node server/ssr/index.js');
@@ -19,8 +21,6 @@ switch (options.task) {
         run('cross-env NODE_ENV=development webpack-dashboard -- webpack-dev-server --config ./build/spa/dev.conf.js');
         break;
     }
-
-    run('yarn api');
 
     break;
 

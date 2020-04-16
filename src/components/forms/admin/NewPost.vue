@@ -40,6 +40,8 @@
   import FormSubmitMixin from '@/mixins/FormSubmit';
   
   import VUpload from '#c/ui/Upload';
+  
+  import gql from 'graphql-tag';
 
   const validationRules = function(self) {
     return {
@@ -98,23 +100,78 @@
 
     methods: {
       async onSubmitValidationSuccess() {
-        const result = await this.$helpers.run({
-          scope: this,
-          endpoint: 'post/',
-          data: {
+            
+        // We save the user input in case of an error
+        const newTag = this.newTag
+        // We clear it early to give the UI a snappy feel
+        this.newTag = ''
+        // Call to the graphql mutation
+        this.$apollo.mutate({
+          // Query
+          mutation: gql`mutation ($video_id: Int!, $cover_id: Int!, $song_link: String, $description: String) {
+            createPost(video_id: $video_id, cover_id: $cover_id, song_link: $song_link, description: $description) {
+              video_id,
+              cover_id,
+              song_link,
+              description
+            }
+          }`,
+          
+          // Parameters
+          variables: {
             video_id: this.formData.video.id,
             cover_id: this.formData.cover.id,
             song_link: this.formData.songLink,
             description: this.formData.description
           },
-          msg: {
-            start: 'Saving',
-            error: 'Can\'t save the post',
-            success: 'Post created'
-          }
-        });
+          
+          // Update the cache with the result
+          // The query will be updated with the optimistic response
+          // and then with the real result of the mutation
+          // update: (store, { data: { addTag } }) => {
+          //   // Read the data from our cache for this query.
+          //   const data = store.readQuery({ query: TAGS_QUERY })
+          //   // Add our tag from the mutation to the end
+          //   data.tags.push(addTag)
+          //   // Write our data back to the cache.
+          //   store.writeQuery({ query: TAGS_QUERY, data })
+          // },
+          // // Optimistic UI
+          // // Will be treated as a 'fake' result as soon as the request is made
+          // // so that the UI can react quickly and the user be happy
+          // optimisticResponse: {
+          //   __typename: 'Mutation',
+          //   addTag: {
+          //     __typename: 'Tag',
+          //     id: -1,
+          //     label: newTag,
+          //   },
+          // },
+        }).then((data) => {
+          // Result
+          console.log(data)
+        }).catch((error) => {
+          // Error
+          console.error(error)
+        })
         
-        console.log(result);
+        // const result = await this.$helpers.run({
+        //   scope: this,
+        //   endpoint: 'post/',
+        //   data: {
+        //     video_id: this.formData.video.id,
+        //     cover_id: this.formData.cover.id,
+        //     song_link: this.formData.songLink,
+        //     description: this.formData.description
+        //   },
+        //   msg: {
+        //     start: 'Saving',
+        //     error: 'Can\'t save the post',
+        //     success: 'Post created'
+        //   }
+        // });
+        
+        //console.log(result);
       }
     },
 
