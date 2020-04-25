@@ -1,10 +1,12 @@
 /dist
 
 /ssl/*
-!ssl/.gitkeep 
+!ssl/.gitkeep
 
 /cache
 
 node_modules
 
 .DS_Store
+
+.vagrant

@@ -11,7 +11,7 @@ const buildConfig = require('./config/main');
 switch (options.task) {
   case 'dev':
 
-    run('yarn api');
+    //run('yarn api');
 
     switch (buildConfig.mode) {
       case 'SSR':
