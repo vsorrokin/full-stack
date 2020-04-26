@@ -5,9 +5,9 @@ services:
     container_name: myvid-front
     volumes:
       - nodemodules:/usr/src/app/node_modules
-      - .:/usr/src/app/
+      - ../:/usr/src/app/
     working_dir: /usr/src/app
-    command: yarn start
+    command: node run.js -t dev
     ports:
       - "8080:8080"
     environment:
