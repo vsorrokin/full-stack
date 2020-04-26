@@ -3,7 +3,7 @@ services:
   base:
     image: node:12
     volumes:
-      - nodemodules:/usr/src/app/node_modules
+      #- nodemodules:/usr/src/app/node_modules
       - ../:/usr/src/app
     working_dir: /usr/src/app
 
@@ -12,6 +12,16 @@ services:
       service: base
     command: yarn
 
-volumes:
-  nodemodules:
-    external: true
+  add:
+    extends:
+      service: base
+    command: yarn add ${LIBS}
+
+  cmd:
+    extends:
+      service: base
+    command: ${CMD}
+
+# volumes:
+#   nodemodules:
+#     external: true
