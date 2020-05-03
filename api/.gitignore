@@ -1,5 +1,8 @@
-/config/credentials.js
+/secret/credentials.json
 
 node_modules
 
 .DS_Store
+
+/cache
+/file_storage

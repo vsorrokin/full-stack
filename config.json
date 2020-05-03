@@ -1,0 +1,31 @@
+{
+  "nodeImage": "node:12",
+  "client": {
+    "port": "8080",
+    "modes": ["SPA", "SSR"],
+    "mode": "SSR",
+    "HTTPS": true,
+    "publicPath": "/dist"
+  },
+  "API": {
+    "host": "http://localhost",
+    "port": "3333",
+    "postgres": {
+      "port": 5432,
+      "host": "postgres",
+      "name": "my_ig"
+    },
+    "pgadmin": {
+      "port": 5051
+    },
+    "redis": {
+      "host": "redis",
+      "port": 6379
+    },
+    "fileStoragePath": "./file_storage"
+  },
+  "maxFileSize": {
+    "video": 200,
+    "cover": 5
+  }
+}

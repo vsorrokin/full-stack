@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export NODE_ENV=development
+export NODE_IMAGE=$(jq -r '.nodeImage' ./config.json)
+export PORT=$(jq -r '.client.port' ./config.json)
+
+docker-compose -f ./docker/docker-compose.yml up

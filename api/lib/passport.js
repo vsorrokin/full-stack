@@ -7,7 +7,6 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy   = passportJWT.Strategy;
 
-const credentials = require('../config/credentials');
 const usersController = require('../controllers/users');
 
 passport.use(new LocalStrategy({
@@ -41,7 +40,7 @@ passport.use(new LocalStrategy({
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: credentials.jwtSecret
+    secretOrKey: GSECRET.jwtSecret
   },
   function (jwtPayload, cb) {
     return usersController.findOneById(jwtPayload.id)

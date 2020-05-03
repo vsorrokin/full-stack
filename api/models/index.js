@@ -2,17 +2,14 @@
 const path   = require('path');
 const sqlFormatter = require('sql-formatter');
 
-const serviceConfig = require('../config/service');
-const credentials   = require('../config/credentials');
-
 const ModelsInit = require(path.resolve('lib/models_init'));
 
 module.exports = new ModelsInit().get({
-  database: serviceConfig.postgres.name,
-  username: credentials.postgres.user,
-  password: credentials.postgres.password,
-  host: serviceConfig.postgres.host,
-  port: serviceConfig.postgres.port,
+  database: GCONFIG.API.postgres.name,
+  username: GSECRET.postgres.user,
+  password: GSECRET.postgres.password,
+  host: GCONFIG.API.postgres.host,
+  port: GCONFIG.API.postgres.port,
   dialect: 'postgres',
   dirPath: path.resolve('models'),
   log: sql => {

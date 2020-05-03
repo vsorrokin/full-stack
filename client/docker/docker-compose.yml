@@ -1,0 +1,21 @@
+version: '3.0'
+services:
+  front:
+    build:
+      context: .
+      args:
+        NODE_IMAGE: ${NODE_IMAGE}
+    container_name: myvid-front
+    volumes:
+      #- nodemodules:/usr/src/app/node_modules
+      - ../:/usr/src/app/
+    working_dir: /usr/src/app
+    command: node run.js -t dev
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+
+# volumes:
+#   nodemodules:
+#     external: true

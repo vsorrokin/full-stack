@@ -1,9 +1,6 @@
 const Promise  = require('bluebird');
 const Redis    = require('ioredis');
 
-const serviceConfig = require('../config/service');
-const credentials = require('../config/credentials');
-
 class RedisService {
 
   constructor() {
@@ -25,15 +22,15 @@ class RedisService {
     }
 
     if (retriesCount >= this.settings.maxConnectionRetryCount) {
-      throw "Can't connect to Redis. Please check your connection settings in config/credentials.js";
+      throw "Can't connect to Redis. Please check your connection settings in secret/credentials.json";
     }
 
     try {
 
       await new Promise(function(resolve, reject) {
         new Redis({
-          port: serviceConfig.redis.port,
-          host: serviceConfig.redis.host,
+          port: GCONFIG.API.redis.port,
+          host: GCONFIG.API.redis.host,
           retryStrategy: () => undefined
         })
         .on('error', reject)

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export NODE_IMAGE=$(jq -r '.nodeImage' ../config.json)
+export CMD="$*"
+docker-compose -f ./docker/docker-compose.builder.yml run --rm cmd

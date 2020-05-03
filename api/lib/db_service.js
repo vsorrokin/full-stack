@@ -1,9 +1,6 @@
 const Promise  = require('bluebird');
 const pgNative = require('pg-native');
 
-const serviceConfig = require('../config/service');
-const credentials = require('../config/credentials');
-
 class DBService {
   constructor() {
     this.pgClient = new pgNative();
@@ -20,16 +17,16 @@ class DBService {
     }
 
     if (retriesCount >= this.settings.maxConnectionRetryCount) {
-      throw "Can't connect to the Database. Please check your connection settings in config/credentials.js";
+      throw "Can't connect to the Database. Please check your connection settings in secret/credentials.json";
     }
 
     try {
       this.pgClient.connectSync(`
         dbname=postgres
-        host=${serviceConfig.postgres.host}
-        user=${credentials.postgres.user}
-        password=${credentials.postgres.password}
-        port=${serviceConfig.postgres.port}
+        host=${GCONFIG.API.postgres.host}
+        user=${GSECRET.postgres.user}
+        password=${GSECRET.postgres.password}
+        port=${GCONFIG.API.postgres.port}
       `);
       return true;
     } catch(e) {
@@ -42,16 +39,29 @@ class DBService {
   }
 
   createDatabase() {
-    try {
-      this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
-    } catch (e) {
+    this.pgClient.querySync(`
+      CREATE EXTENSION IF NOT EXISTS dblink;
+      DO
+      $do$
+      BEGIN
+         IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${this.databaseName}') THEN
+            PERFORM dblink_exec('dbname=' || current_database()  -- current db
+                              , 'CREATE DATABASE ${this.databaseName}');
+         END IF;
+      END
+      $do$;
+    `);
 
-    }
+    // try {
+    //   this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
+    // } catch (e) {
+    //
+    // }
   }
 
   initDbConnection(options) {
     this.options = options || Object.create(null);
-    this.databaseName = serviceConfig.postgres.name;
+    this.databaseName = GCONFIG.API.postgres.name;
 
     if (this.options.dbPostfix) {
       this.databaseName += this.options.dbPostfix;

@@ -2,8 +2,6 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-const credentials = require('../../config/credentials');
-
 const router = module.exports = express.Router();
 
 router.post('/login', (req, res, next) => {
@@ -19,7 +17,7 @@ router.post('/login', (req, res, next) => {
       last_name: user.last_name
     };
 
-    const token = jwt.sign(user, credentials.jwtSecret, {expiresIn: '30000m'});
+    const token = jwt.sign(user, GSECRET.jwtSecret, {expiresIn: '30000m'});
 
     return res.jsend.success({user, token});
 

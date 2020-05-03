@@ -1,0 +1,15 @@
+#!/bin/bash
+
+export NODE_ENV=development
+export NODE_IMAGE=$(jq -r '.nodeImage' ./config.json)
+export PORT=$(jq -r '.API.port' ./config.json)
+
+export PGADMIN_PORT=$(jq -r '.API.pgadmin.port' ./config.json)
+export PGADMIN_USER=$(jq -r '.pgadmin.user' ./secret/credentials.json)
+export PGADMIN_PASSWORD=$(jq -r '.pgadmin.password' ./secret/credentials.json)
+
+export POSTGRES_PORT=$(jq -r '.API.postgres.port' ./config.json)
+export POSTGRES_USER=$(jq -r '.postgres.user' ./secret/credentials.json)
+export POSTGRES_PASSWORD=$(jq -r '.postgres.password' ./secret/credentials.json)
+
+export REDIS_PORT=$(jq -r '.API.redis.port' ../config.json)

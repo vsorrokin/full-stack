@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source ./bin/data/env
+
+# db seed, db migrate, db migrate:undo and any other sequelize-cli commands
+docker-compose -f ./docker/docker-compose.yml run server node run.js -t $*

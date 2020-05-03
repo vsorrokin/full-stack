@@ -3,13 +3,11 @@ const multer  = require('multer');
 const path    = require('path');
 const filesController = require('../../controllers/files');
 
-const config = require('../../config/main');
-
 const router = module.exports = express.Router();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, config.fileStoragePath);
+    cb(null, GCONFIG.API.fileStoragePath);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);
@@ -28,7 +26,7 @@ router.post('/:type', (req, res, next) => {
   var upload = multer({
     storage,
     limits: {
-      fileSize: (1024 * 1024) * config.maxFileSize[type], //100MB
+      fileSize: (1024 * 1024) * GCONFIG.maxFileSize[type], //100MB
       files: 1
     }
   }).single('file');

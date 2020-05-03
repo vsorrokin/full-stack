@@ -1,21 +1,21 @@
 'use strict';
 const bcrypt = require('bcrypt');
 
-const credentials = require('../config/credentials');
+const GSECRET = require('../secret/credentials.json');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [{
       first_name : 'Vadim',
       last_name : 'Sorokin',
-      email : credentials.admin.email,
-      password : bcrypt.hashSync(credentials.admin.password, 10)
+      email : GSECRET.admin.email,
+      password : bcrypt.hashSync(GSECRET.admin.password, 10)
     }], {});
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Users', [{
-      email: credentials.admin.email
+      email: GSECRET.admin.email
     }]);
   }
 };

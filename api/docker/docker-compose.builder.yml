@@ -1,0 +1,22 @@
+version: '2'
+services:
+  base:
+    image: node:12
+    volumes:
+      - ../:/usr/src/app
+    working_dir: /usr/src/app
+
+  install:
+    extends:
+      service: base
+    command: yarn
+
+  add:
+    extends:
+      service: base
+    command: yarn add ${LIBS}
+
+  cmd:
+    extends:
+      service: base
+    command: ${CMD}
