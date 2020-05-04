@@ -15,9 +15,6 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
 
-    networks:
-      - default
-
 networks:
   default:
     name: ${NETWORK_NAME}
