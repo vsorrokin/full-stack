@@ -19,6 +19,11 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
 
+    networks:
+      default:
+        aliases:
+          - ${API_HOST}
+
   redis:
     image: redis:6-alpine
     ports:
@@ -43,4 +48,4 @@ services:
 networks:
   default:
     external:
-      name: ${CLIENT_PROJECT_NAME}_${NETWORK_NAME}
+      name: ${NETWORK_NAME}

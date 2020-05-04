@@ -28,7 +28,7 @@
   },
   "docker": {
     "APIHost": "api",
-    "networkName": "net"
+    "networkName": "pf-net"
   },
   "maxFileSize": {
     "video": 200,

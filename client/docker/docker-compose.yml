@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.5'
 services:
   front:
     build:
@@ -16,10 +16,11 @@ services:
       NODE_ENV: ${NODE_ENV}
 
     networks:
-      - ${NETWORK_NAME}
+      - default
 
 networks:
-  net:
+  default:
+    name: ${NETWORK_NAME}
     driver: bridge
 
 # volumes:
