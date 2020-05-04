@@ -1,5 +1,10 @@
 #!/bin/bash
 
+export COMPOSE_PROJECT_NAME=$(jq -r '.API.projectName' ./config.json)
+export CLIENT_PROJECT_NAME=$(jq -r '.client.projectName' ./config.json)
+export API_HOST=$(jq -r '.docker.APIHost' ../config.json)
+export NETWORK_NAME=$(jq -r '.docker.networkName' ./config.json)
+
 export NODE_ENV=development
 export NODE_IMAGE=$(jq -r '.nodeImage' ./config.json)
 export PORT=$(jq -r '.API.port' ./config.json)

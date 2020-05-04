@@ -14,7 +14,7 @@ switch (options.task) {
         run('cross-env NODE_ENV=development node server/ssr/index.js');
         break;
       case 'SPA':
-        run('cross-env NODE_ENV=development webpack-dashboard -- webpack-dev-server --config ./build/spa/dev.conf.js');
+        run('cross-env NODE_ENV=development webpack-dev-server --config ./build/spa/dev.conf.js');
         break;
     }
 

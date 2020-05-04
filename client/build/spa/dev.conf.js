@@ -14,7 +14,7 @@ module.exports = merge(baseConfig, {
   devServer: {
     disableHostCheck: true,
     //bonjour: true, //allow to open server in all localhost devices
-    host: 'localhost', // If you want your server to be accessible externally then use '0.0.0.0'
+    host: '0.0.0.0', // If you want your server to be accessible externally then use '0.0.0.0'
     historyApiFallback: true,
     hot: true,
     https: {

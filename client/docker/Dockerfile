@@ -2,6 +2,8 @@ ARG NODE_IMAGE
 
 FROM ${NODE_IMAGE}
 
+RUN echo $NODE_IMAGE
+
 
 # mkcert deps
 # RUN apt update

@@ -1,7 +1,7 @@
 version: '3.0'
 services:
-
-  server:
+  api:
+    #hostname: ${API_HOST}
     build:
       context: .
       args:
@@ -21,20 +21,26 @@ services:
 
   redis:
     image: redis:6-alpine
-    container_name: my-ig-redis
+    ports:
+      - "${REDIS_PORT}:6379"
 
   postgres:
     image: postgres:12.2-alpine
-    container_name: my-ig-postgres
+    ports:
+      - "${POSTGRES_PORT}:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: ig-pgadmin
     ports:
       - "${PGADMIN_PORT}:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+
+networks:
+  default:
+    external:
+      name: ${CLIENT_PROJECT_NAME}_${NETWORK_NAME}

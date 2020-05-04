@@ -13,9 +13,13 @@ Vue.use(VueApollo);
 export default function createApolloProvider() {
   const ssr = typeof window === 'undefined';
 
+  const host = ssr ? `http://${GCONFIG.docker.APIHost}` : GCONFIG.API.host;
+  const uri = `${host}:${GCONFIG.API.port}/graphql`;
+
+  console.log('URI', uri);
+
   const httpLink = new HttpLink({
-    // You should use an absolute URL here
-    uri: `${GCONFIG.API.host}:${GCONFIG.API.port}/graphql`,
+    uri,
     fetch: buildAxiosFetch(axios)
   });
 

@@ -39,24 +39,24 @@ class DBService {
   }
 
   createDatabase() {
-    this.pgClient.querySync(`
-      CREATE EXTENSION IF NOT EXISTS dblink;
-      DO
-      $do$
-      BEGIN
-         IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${this.databaseName}') THEN
-            PERFORM dblink_exec('dbname=' || current_database()  -- current db
-                              , 'CREATE DATABASE ${this.databaseName}');
-         END IF;
-      END
-      $do$;
-    `);
+    // this.pgClient.querySync(`
+    //   CREATE EXTENSION IF NOT EXISTS dblink;
+    //   DO
+    //   $do$
+    //   BEGIN
+    //      IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${this.databaseName}') THEN
+    //         PERFORM dblink_exec('dbname=' || current_database()  -- current db
+    //                           , 'CREATE DATABASE ${this.databaseName}');
+    //      END IF;
+    //   END
+    //   $do$;
+    // `);
 
-    // try {
-    //   this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
-    // } catch (e) {
-    //
-    // }
+    try {
+      this.pgClient.querySync(`CREATE DATABASE ${this.databaseName}`);
+    } catch (e) {
+
+    }
   }
 
   initDbConnection(options) {

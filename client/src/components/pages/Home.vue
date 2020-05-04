@@ -14,15 +14,20 @@ export default {
   name: 'home-page',
   
   apollo: {
-    posts: gql`query {
-      posts {
-        id,
-        video_id,
-        cover_id,
-        song_link,
-        description
+    posts: {
+      query: gql`query {
+        posts {
+          id,
+          video_id,
+          cover_id,
+          song_link,
+          description
+        }
+      }`,
+      error(error) {
+       console.error(error.message);
       }
-    }`,
+    }
   },
 
   // asyncData ({ store, route }) {

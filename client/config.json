@@ -1,6 +1,7 @@
 {
   "nodeImage": "node:12",
   "client": {
+    "projectName": "pf-front",
     "port": "8080",
     "modes": ["SPA", "SSR"],
     "mode": "SSR",
@@ -8,6 +9,7 @@
     "publicPath": "/dist"
   },
   "API": {
+    "projectName": "pf-api",
     "host": "http://localhost",
     "port": "3333",
     "postgres": {
@@ -23,6 +25,10 @@
       "port": 6379
     },
     "fileStoragePath": "./file_storage"
+  },
+  "docker": {
+    "APIHost": "api",
+    "networkName": "net"
   },
   "maxFileSize": {
     "video": 200,
