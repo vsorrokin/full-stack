@@ -1,1 +1,3 @@
 #!/bin/bash
+
+(cd client && dev) & (cd api && dev)

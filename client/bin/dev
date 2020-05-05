@@ -2,4 +2,6 @@
 
 source ./bin/data/env
 
+python -m webbrowser -t "https://localhost:${PORT}"
+
 docker-compose -f ./docker/docker-compose.yml up

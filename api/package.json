@@ -6,9 +6,6 @@
   ],
   "scripts": {
     "dev": "nodemon server.js",
-    "migrate": "node run.js -t migrate",
-    "migrate:undo": "node run.js -t migrate:undo",
-    "seed": "node run.js -t seed",
     "pgadmin": "node run.js -t pgadmin"
   },
   "dependencies": {

@@ -19,6 +19,7 @@ class SequelizeInit {
       host: this.config.host,
       port: this.config.port,
       dialect: this.config.dialect,
+      seederStorage: "sequelize",
       logging: sql => {
         if (typeof this.config.log === 'function') {
           this.config.log(sql);

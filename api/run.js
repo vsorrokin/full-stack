@@ -6,18 +6,20 @@ const options = commandLineArgs([
   { name: 'task', alias: 't', type: String }
 ]);
 
-const sequelizeConfig = `--url 'postgres://${GSECRET.postgres.user}:${GSECRET.postgres.password}@${GCONFIG.API.postgres.host}:${GCONFIG.API.postgres.port}/${GCONFIG.API.postgres.name}'`;
-
 switch (options.task) {
   case 'seed':
-    run(`sequelize db:seed:all ${sequelizeConfig}`)
+    run(`sequelize db:seed:all`)
+    break;
+
+  case 'seed:undo':
+    run(`sequelize db:seed:undo:all`)
     break;
 
   case 'migrate:undo':
-    run(`sequelize db:migrate:undo ${sequelizeConfig}`)
+    run(`sequelize db:migrate:undo`)
     break;
 
   case 'migrate':
-    run(`sequelize db:migrate ${sequelizeConfig}`)
+    run(`sequelize db:migrate`)
     break;
 }
