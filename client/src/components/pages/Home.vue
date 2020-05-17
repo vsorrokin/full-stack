@@ -25,7 +25,7 @@ export default {
         }
       }`,
       error(error) {
-       console.error(error.message);
+       console.error('Vue Apollo error', error.message);
       }
     }
   },

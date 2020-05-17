@@ -1,7 +1,3 @@
-const passport = require('passport');
-
-const t = passport.authenticate('jwt', {session: false});
-
 module.exports = {
   Query: {
     posts: (parent, args, context, info) => {
@@ -10,7 +6,6 @@ module.exports = {
       // let res = {authorization: {}};
       // let next = () => {};
       // t(req, res, next);
-      console.log(context.req);
       return context.db.Post.findAll();
     }
   },

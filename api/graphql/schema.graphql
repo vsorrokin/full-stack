@@ -1,0 +1,26 @@
+directive @auth(
+  requires: Role = ADMIN,
+) on OBJECT | FIELD_DEFINITION | QUERY | MUTATION
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type Post {
+  id: ID!
+  video_id: Int!
+  cover_id: Int!
+  song_link: String
+  description: String
+}
+
+type Query {
+  posts: [Post!]!
+}
+
+type Mutation @auth(requires: ADMIN) {
+  createPost(video_id: Int!, cover_id:Int!, song_link: String, description: String): Post!
+}

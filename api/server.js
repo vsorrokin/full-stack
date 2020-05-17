@@ -6,6 +6,9 @@ if (!global.GSECRET) {
   global.GSECRET = require('./secret/credentials.json');
 }
 
+const gqlImport = require('graphql-import');
+const { ApolloServer } = require("apollo-server-express");
+
 // Save environment to the variable
 const env = process.env.NODE_ENV || 'development';
 
@@ -23,14 +26,17 @@ const redisService = require('./lib/redis_service');
   await dbService.initDbConnection();
 
   // GraphQL
-  const { ApolloServer, gql } = require("apollo-server-express");
-  const typeDefs = require("./graphql/schema");
+  const typeDefs = gqlImport.importSchema('./graphql/schema.graphql');
   const resolvers = require("./graphql/resolvers");
+  const schemaDirectives = require("./graphql/directives");
   const db = require("./models");
   const apolloServer = new ApolloServer({
-    typeDefs: gql(typeDefs),
+    typeDefs,
     resolvers,
-    context: { db }
+    schemaDirectives,
+    context: (context) => {
+      return { db, req: context.req };
+    }
   });
 
   require('./lib/passport');

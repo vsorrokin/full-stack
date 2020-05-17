@@ -14,7 +14,6 @@
 </template>
 
 <script>
-//const APIConfig = require('@/../api/config/main');
 
 export default {
   name: 'upload',
@@ -109,7 +108,7 @@ export default {
       const file = event.target.files[0];
       event.target.value = null;
       
-      const maxFileSize = APIConfig.maxFileSize[this.settings.type];
+      const maxFileSize = GCONFIG.maxFileSize[this.settings.type];
       if (file. size / 1024 / 1024 > maxFileSize) {
         this.$notification.error(`Max file size is ${maxFileSize}MB`);
         return;
