@@ -24,6 +24,20 @@ export default {
       default() {
         return {};
       }
+    },
+    value: {
+      type: [Object, String],
+      default() {
+        return {}
+      }
+    },
+  },
+  
+  watch: {
+    value(val) {
+      if (val === null) {
+        this.reset();
+      }
     }
   },
   

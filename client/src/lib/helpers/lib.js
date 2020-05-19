@@ -8,10 +8,13 @@ class Helpers {
   _notifyError(settings) {
     const {err, msg, scope} = settings;
 
-    const errorCode = getPropValue(err, 'response.data.data.code');
+    console.error(err);
 
-    if (!errorCode) {
-      this.notify({texts: msg, step: 'error', self: scope, overlay: false, errorDuration: 2000});
+    const errorCode = getPropValue(err, 'response.data.data.code');
+    const errorMessage = getPropValue(err, 'message');
+
+    if (!errorCode && !errorMessage) {
+      this.notify({texts: msg, step: 'error', self: scope});
       scope.isLoading = false;
       scope.notification = null;
       return;
@@ -24,10 +27,14 @@ class Helpers {
         break;
     }
 
+    if (!text && errorMessage) {
+      text = errorMessage;
+    }
+
     msg[`error${errorCode}`] = text;
 
 
-    this.notify({texts: msg, step: `error${errorCode}`, self: scope, overlay: false, errorDuration: 2000});
+    this.notify({texts: msg, step: `error${errorCode}`, self: scope});
     scope.isLoading = false;
     scope.notification = null;
   }
@@ -60,9 +67,7 @@ class Helpers {
   }
 
   notify(settings) {
-    let {texts, step, self, overlay, errorDuration} = settings;
-
-    if (overlay === undefined) overlay = true;
+    let {texts, step, self, overlay = false, errorDuration = 2000} = settings;
 
     const text = texts[step];
 
