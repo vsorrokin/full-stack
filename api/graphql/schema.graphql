@@ -9,6 +9,14 @@ enum Role {
   UNKNOWN
 }
 
+type File {
+  id: ID!
+  name: String!
+  type: String!
+  size: String!
+  local_name: String!
+}
+
 type Post {
   id: ID!
   video_id: Int!
@@ -21,6 +29,7 @@ type Query {
   posts: [Post!]!
 }
 
-type Mutation @auth(requires: ADMIN) {
-  createPost(video_id: Int!, cover_id:Int!, song_link: String, description: String): Post!
+type Mutation {
+  createPost(video_id: Int!, cover_id:Int!, song_link: String, description: String): Post! @auth(requires: ADMIN)
+  upload(file: Upload!, type: String!): File! @auth(requires: ADMIN)
 }

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ./bin/data/env
+
+docker-compose -f ./docker/docker-compose.yml run api node tasks/clear_data.js

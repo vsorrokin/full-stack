@@ -35,7 +35,7 @@ const redisService = require('./lib/redis_service');
     resolvers,
     schemaDirectives,
     context: (context) => {
-      return { db, req: context.req };
+      return { db, req: context.req, res: context.res };
     }
   });
 

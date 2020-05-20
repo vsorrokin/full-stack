@@ -114,11 +114,12 @@
           scope: this,
           mutation: 'createPost',
           data: {
-            video_id: ['Int!', this.formData.video.id],
-            cover_id: ['Int!', this.formData.cover.id],
+            video_id: ['Int!', +this.formData.video.id],
+            cover_id: ['Int!', +this.formData.cover.id],
             song_link: ['String', this.formData.songLink],
             description: ['String', this.formData.description]
           },
+          returnProps: ['id'],
           msg: {
             start: 'Saving',
             error: 'Can\'t save the post',
@@ -126,7 +127,7 @@
           }
         });
         
-        if (result.cover_id) {
+        if (result.id) {
           this.resetForm();
         }
 

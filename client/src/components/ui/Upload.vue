@@ -84,7 +84,6 @@ export default {
         this.updateModel(null);
         event.preventDefault();
         this.request.cancel('Aborted by user');
-        this.reset();
       }
     },
     
@@ -96,14 +95,15 @@ export default {
         type: file.type,
         size: (file.size / 1024 / 1024).toFixed(2)
       };
-      
-      this.request = this.$API.upload({
+
+      this.request = this.$networkAction.upload({
+        scope: this,
         type: this.settings.type,
         file,
         onUploadProgress: (progressEvent) => {
           this.progress = (progressEvent.loaded / progressEvent.total) * 100;
         }
-      });
+      })
       
       let result;
       try {
@@ -113,7 +113,7 @@ export default {
       }
       
       if(result) {
-        this.updateModel(result.data.data);
+        this.updateModel(result.data.upload);
         this.request = null;
       }
     },

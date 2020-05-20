@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
+//import { HttpLink } from 'apollo-link-http';
 import { ApolloLink, concat, split } from 'apollo-link';
-import { buildAxiosFetch } from 'axios-fetch';
+import { createUploadLink } from 'apollo-upload-client';
+import { buildAxiosFetch } from '@lifeomic/axios-fetch';
 import axios from 'axios';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
+//const nodeFetch = require('node-fetch');
 
 // Install the vue plugin
 Vue.use(VueApollo);
@@ -17,9 +19,14 @@ export default function createApolloProvider(store) {
   const host = ssr ? `http://${GCONFIG.docker.APIHost}` : GCONFIG.API.host;
   const uri = `${host}:${GCONFIG.API.port}/graphql`;
 
-  const httpLink = new HttpLink({
+  const httpLink = createUploadLink({
     uri,
-    fetch: buildAxiosFetch(axios)
+    fetch: buildAxiosFetch(axios, function (config, input, init) {
+      return {
+        ...config,
+        ...init
+      };
+    })
   });
 
   const authMiddleware = new ApolloLink((operation, forward) => {

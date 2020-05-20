@@ -9,10 +9,7 @@ class NetworkAction {
   this.$apollo.mutate({
     mutation: gql`mutation ($video_id: Int!, $cover_id: Int!, $song_link: String, $description: String) {
       createPost(video_id: $video_id, cover_id: $cover_id, song_link: $song_link, description: $description) {
-        video_id,
-        cover_id,
-        song_link,
-        description
+        id
       }
     }`,
 
@@ -24,12 +21,11 @@ class NetworkAction {
     }
   })
   */
-  _getGqlData(data, mutation) {
+  _getGqlData(data, returnProps, mutation) {
     const result = {
       variables: {},
       mutationArgs: [],
-      mutationMethodArgs: [],
-      mutationMethodData: []
+      mutationMethodArgs: []
     };
 
     for (let key in data) {
@@ -38,30 +34,50 @@ class NetworkAction {
       result.mutationArgs.push(`$${key}: ${data[key][0]}`);
 
       result.mutationMethodArgs.push(`${key}: $${key}`);
-
-      result.mutationMethodData.push(key);
     }
 
     result.mutationArgs.join(', ');
     result.mutationMethodArgs.join(', ');
-    result.mutationMethodData.join(', ');
+
+    const mutationString = `mutation (${result.mutationArgs}) {
+      ${mutation}(${result.mutationMethodArgs}) {
+        ${returnProps}
+      }
+    }`;
 
     return {
-      mutation: gql`mutation (${result.mutationArgs}) {
-        ${mutation}(${result.mutationMethodArgs}) {
-          ${result.mutationMethodData}
-        }
-      }`,
-
+      mutation: gql`${mutationString}`,
       variables: result.variables
     };
   }
 
-  mutate({data, mutation}) {
-    return this.vue.$apollo.mutate(this._getGqlData(data, mutation));
+  upload({type, file, onUploadProgress, scope}) {
+    const cancelTokenSource = this.vue.$http.CancelToken.source();
+
+    const promise = scope.$apollo.mutate({
+      ...this._getGqlData({
+        file: ['Upload!', file],
+        type: ['String!', type]
+      }, 'id', 'upload'),
+      context: {
+        fetchOptions: {
+          onUploadProgress,
+          cancelToken: cancelTokenSource.token
+        }
+      },
+    });
+
+    return {
+      promise,
+      cancel: cancelTokenSource.cancel
+    };
   }
 
-  async run({scope, mutation, data, msg}) {
+  mutate({data, returnProps, mutation, scope}) {
+    return scope.$apollo.mutate(this._getGqlData(data, returnProps, mutation));
+  }
+
+  async run({scope, mutation, data, returnProps, msg}) {
 
     // Set loading status
     if (scope.isLoading) return;
@@ -74,7 +90,7 @@ class NetworkAction {
     let result;
     try {
 
-      result = await this.mutate({data, mutation});
+      result = await this.mutate({data, returnProps, mutation, scope});
     } catch (err) {
       this.vue.$helpers._notifyError({err, msg, scope});
       return;

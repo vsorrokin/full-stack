@@ -24,7 +24,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
     try {
       userInfoFromToken = await new Promise(function(resolve, reject) {
         new passportJWT.Strategy({
-            jwtFromRequest: () => headers.authorization.replace('Bearer ', ''),
+            jwtFromRequest: () => (headers.Authorization || headers.authorization || '').replace('Bearer ', ''),
             secretOrKey: GSECRET.jwtSecret
           },
           function (jwtPayload, cb) {
