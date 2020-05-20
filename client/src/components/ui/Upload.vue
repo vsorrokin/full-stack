@@ -46,7 +46,8 @@ export default {
       request: null,
       file: null,
       width: null,
-      progress: 0
+      progress: 0,
+      maxFileNameLength: 15
     }
   },
   
@@ -56,12 +57,20 @@ export default {
   
   computed: {
     label() {
+      let fileName = this.file ? this.file.name : '';
+      
+      const fileExt = fileName.split('.').reverse()[0];
+      
+      if (fileName.length > this.maxFileNameLength) {
+        fileName = fileName.slice(0, this.maxFileNameLength) + '...' + fileExt;
+      }
+      
       if (this.file && this.request) {
-        return `Uploading ${this.file.name} (${this.file.size} MB). Click to cancel.`;
+        return `Uploading ${fileName} (${this.file.size} MB). Click to cancel.`;
       }
       
       if (this.file && !this.request) {
-        return `${this.file.name} (${this.file.size} MB)`;
+        return `${fileName} (${this.file.size} MB)`;
       }
       
       return this.settings.label || 'Select file';
