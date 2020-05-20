@@ -7,10 +7,10 @@ const filesController = require('../../../controllers/files');
 const allowedTypes = ['video', 'cover'];
 const UPLOAD_DIR = path.resolve(GCONFIG.API.fileStoragePath);
 
-mkdirp.sync(UPLOAD_DIR);
-
 module.exports = {
   async upload(parent, args, context, info) {
+
+    mkdirp.sync(UPLOAD_DIR);
 
     if (!allowedTypes.includes(args.type)) {
       throw new Error({code: 'incorrect_upload_type'});
