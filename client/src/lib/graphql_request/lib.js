@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-class NetworkAction {
+class GraphqlRequest {
   constructor(settings) {
     this.vue = settings.vue;
   }
@@ -100,7 +100,7 @@ class NetworkAction {
 
       result = await this.mutate({data, returnProps, mutation, scope});
     } catch (err) {
-      this.vue.$helpers._notifyError({err, msg, scope});
+      this.vue.$helpers.notifyError({err, msg, scope});
       return;
     }
 
@@ -113,4 +113,4 @@ class NetworkAction {
   }
 }
 
-export default NetworkAction;
+export default GraphqlRequest;

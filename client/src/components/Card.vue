@@ -18,7 +18,7 @@ export default {
 
   computed: {
     bg() {
-      const coverURL = this.$API.getURL(`file/${this.data.cover_id}`);
+      const coverURL = this.$APIRequest.getURL(`file/${this.data.cover_id}`);
       
       return {'background-image': `url(${coverURL})`}
     }

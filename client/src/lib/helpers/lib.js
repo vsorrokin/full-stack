@@ -5,7 +5,7 @@ class Helpers {
     this.vue = settings.vue;
   }
 
-  _notifyError(settings) {
+  notifyError(settings) {
     const {err, msg, scope} = settings;
 
     console.error(err);
@@ -37,33 +37,6 @@ class Helpers {
     this.notify({texts: msg, step: `error${errorCode}`, self: scope});
     scope.isLoading = false;
     scope.notification = null;
-  }
-
-  async run(settings) {
-    // Settings
-    let {scope, endpoint, data, msg, method} = settings;
-    if (!method) method = 'post';
-
-    // Set loading status
-    if (scope.isLoading) return;
-    scope.isLoading = true;
-
-    // Show start notification
-    this.notify({texts: msg, step: 'start', self: scope, overlay: false, errorDuration: 2000});
-
-    let result;
-    try {
-      result = await this.vue.$API[method](endpoint, data);
-    } catch (err) {
-      this._notifyError({err, msg, scope});
-      return;
-    }
-
-    this.notify({texts: msg, step: 'success', self: scope, overlay: false, errorDuration: 2000});
-    scope.isLoading = false;
-    scope.notification = null;
-
-    return result.data.data;
   }
 
   notify(settings) {

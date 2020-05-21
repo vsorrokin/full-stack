@@ -1,6 +1,6 @@
 import setProp from 'lodash/set';
 
-class API {
+class APIRequest {
   constructor(settings) {
     this.vue = settings.vue;
   }
@@ -42,12 +42,35 @@ class API {
   }
 
   getURL() {
-    return API.getURL(...arguments);
+    return APIRequest.getURL(...arguments);
   }
 
   post(endpoint, data) {
     return this.vue.$http.post(this.getURL(endpoint), data, this._getOptions());
   }
+
+  async run({scope, endpoint, data, msg, method = 'post'}) {
+    // Set loading status
+    if (scope.isLoading) return;
+    scope.isLoading = true;
+
+    // Show start notification
+    this.vue.$helpers.notify({texts: msg, step: 'start', self: scope});
+
+    let result;
+    try {
+      result = await this.vue.$APIRequest[method](endpoint, data);
+    } catch (err) {
+      this.vue.$helpers.notifyError({err, msg, scope});
+      return;
+    }
+
+    this.vue.$helpers.notify({texts: msg, step: 'success', self: scope});
+    scope.isLoading = false;
+    scope.notification = null;
+
+    return result.data.data;
+  }
 }
 
-export default API;
+export default APIRequest;

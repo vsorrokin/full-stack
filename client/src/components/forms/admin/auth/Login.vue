@@ -75,7 +75,7 @@
     methods: {
 
       async onSubmitValidationSuccess() {
-        const result = await this.$helpers.run({
+        const result = await this.$APIRequest.run({
           scope: this,
           endpoint: 'auth/login',
           data: {

@@ -105,7 +105,7 @@ export default {
         size: (file.size / 1024 / 1024).toFixed(2)
       };
 
-      this.request = this.$networkAction.upload({
+      this.request = this.$graphqlRequest.upload({
         scope: this,
         type: this.settings.type,
         file,

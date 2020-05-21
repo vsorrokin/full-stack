@@ -10,8 +10,8 @@ import '@/plugins/vuelidate';
 import '@/plugins/debounce';
 
 import '@/lib/helpers';
-import '@/lib/api';
-import '@/lib/network_action';
+import '@/lib/api_request';
+import '@/lib/graphql_request';
 import '@/lib/error_handler';
 
 

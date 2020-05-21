@@ -110,7 +110,7 @@
       
       async onSubmitValidationSuccess() {
         
-        const result = await this.$networkAction.run({
+        const result = await this.$graphqlRequest.run({
           scope: this,
           mutation: 'createPost',
           data: {
