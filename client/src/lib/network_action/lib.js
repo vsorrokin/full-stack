@@ -54,17 +54,20 @@ class NetworkAction {
   upload({type, file, onUploadProgress, scope}) {
     const cancelTokenSource = this.vue.$http.CancelToken.source();
 
-    const promise = scope.$apollo.mutate({
-      ...this._getGqlData({
+    const promise = this.mutate({
+      data: {
         file: ['Upload!', file],
         type: ['String!', type]
-      }, 'id', 'upload'),
+      },
+      returnProps: 'id',
+      mutation: 'upload',
+      scope,
       context: {
         fetchOptions: {
           onUploadProgress,
           cancelToken: cancelTokenSource.token
         }
-      },
+      }
     });
 
     return {
@@ -73,8 +76,13 @@ class NetworkAction {
     };
   }
 
-  mutate({data, returnProps, mutation, scope}) {
-    return scope.$apollo.mutate(this._getGqlData(data, returnProps, mutation));
+  mutate({data, returnProps, mutation, context = {}, scope}) {
+    return scope.$apollo.mutate(
+      {
+        ...this._getGqlData(data, returnProps, mutation),
+        context
+      }
+    );
   }
 
   async run({scope, mutation, data, returnProps, msg}) {

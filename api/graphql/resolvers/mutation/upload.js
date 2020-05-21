@@ -13,7 +13,7 @@ module.exports = {
     mkdirp.sync(UPLOAD_DIR);
 
     if (!allowedTypes.includes(args.type)) {
-      throw new Error({code: 'incorrect_upload_type'});
+      throw new Error(JSON.stringify({code: 'incorrect_upload_type'}));
     }
 
     const MAX_FILE_SIZE = (1024 * 1024) * GCONFIG.maxFileSize[args.type];
@@ -54,7 +54,7 @@ module.exports = {
         if (currentFileSize > MAX_FILE_SIZE) {
           stream.destroy();
           unlink(path, () => {
-            reject({code: 'entity_too_large'});
+            reject(JSON.stringify({code: 'entity_too_large'}));
           });
         }
       });

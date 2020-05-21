@@ -92,7 +92,7 @@ export default {
       if (this.request) {
         this.updateModel(null);
         event.preventDefault();
-        this.request.cancel('Aborted by user');
+        this.request.cancel(ERR.code('upload_abort'));
       }
     },
     
@@ -118,7 +118,8 @@ export default {
       try {
         result = await this.request.promise;
       } catch (e) {
-        console.error(e);
+        ERR.show(e);
+        this.reset();
       }
       
       if(result) {
@@ -132,6 +133,7 @@ export default {
       event.target.value = null;
       
       const maxFileSize = GCONFIG.maxFileSize[this.settings.type];
+      
       if (file. size / 1024 / 1024 > maxFileSize) {
         this.$notification.error(`Max file size is ${maxFileSize}MB`);
         return;

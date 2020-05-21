@@ -36,7 +36,8 @@ const redisService = require('./lib/redis_service');
     schemaDirectives,
     context: (context) => {
       return { db, req: context.req, res: context.res };
-    }
+    },
+    debug: true
   });
 
   require('./lib/passport');
