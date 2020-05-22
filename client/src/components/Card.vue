@@ -4,7 +4,8 @@
       .image-wrap
         video(preload="none" ref="video" playsinline type="video/mp4" :src="video" :poster="poster")
         .image(:style="bg")
-      .shadow-wrap: .shadow(:style="bg")
+      .shadow-wrap
+        .shadow(:style="blurBg")
 </template>
 
 <script>
@@ -25,18 +26,24 @@ export default {
   },
 
   computed: {
-    bg() {
-      const coverURL = this.$APIRequest.getURL(`file/${this.data.cover_id}`);
+    blurBg() {
+      const URL = this.$APIRequest.getURL(`file/${this.data.cover.options.blurredId}`);
       
-      return {'background-image': `url(${coverURL})`}
+      return {'background-image': `url(${URL})`};
+    },
+    
+    bg() {
+      const URL = this.$APIRequest.getURL(`file/${this.data.cover.id}`);
+      
+      return {'background-image': `url(${URL})`};
     },
     
     poster() {
-      return this.$APIRequest.getURL(`file/${this.data.cover_id}`);
+      return this.$APIRequest.getURL(`file/${this.data.cover.id}`);
     },
     
     video() {
-      return this.$APIRequest.getURL(`file/${this.data.video_id}`);
+      return this.$APIRequest.getURL(`file/${this.data.video.id}`);
     }
   },
   

@@ -2,5 +2,6 @@
 
 source ./bin/data/env
 
-# db seed, db migrate, db migrate:undo and any other sequelize-cli commands
+# db seed, db migrate, db migrate:undo, migration:create --name some-name, seed:create --name some-name
+# and any other sequelize-cli commands
 docker-compose -f ./docker/docker-compose.yml run api node run.js -t $*

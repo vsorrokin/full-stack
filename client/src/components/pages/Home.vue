@@ -18,15 +18,24 @@ export default {
       query: gql`query {
         posts {
           id,
-          video_id,
-          cover_id,
+          cover {
+            id,
+            options
+          },
+          video {
+            id
+          },
           song_link,
           description
         }
       }`,
+      result(res) {
+        console.log(res);
+      },
       error(error) {
        console.error('Vue Apollo error', error.message);
-      }
+     },
+     prefetch: false
     }
   },
 

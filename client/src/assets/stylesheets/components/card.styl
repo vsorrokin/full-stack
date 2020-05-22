@@ -14,9 +14,11 @@
 
   .image, .shadow
     bg-cover()
-    background-color: $color-text
     width: 100%
     height: 100%
+
+  .image
+    background-color: $color-text
 
   video
     position: absolute
@@ -38,10 +40,10 @@
     z-index: 1
 
   .shadow-wrap
-    width: 100%
+    width: 120%
+    height: @width
     position: absolute
     top: 1vw
     left: 1vw
-    filter: blur(2vw)
-    opacity: .7
+    opacity: 1
     z-index: 0

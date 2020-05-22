@@ -2,6 +2,8 @@ directive @auth(
   requires: Role = ADMIN,
 ) on OBJECT | FIELD_DEFINITION | QUERY | MUTATION
 
+scalar JSON
+
 enum Role {
   ADMIN
   REVIEWER
@@ -15,18 +17,20 @@ type File {
   type: String!
   size: String!
   local_name: String!
+  options: JSON
 }
 
 type Post {
   id: ID!
-  video_id: Int!
-  cover_id: Int!
+  video: File!
+  cover: File!
   song_link: String
   description: String
 }
 
 type Query {
   posts: [Post!]!
+  file(id: ID!): File!
 }
 
 type Mutation {

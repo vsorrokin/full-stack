@@ -53,7 +53,10 @@ module.exports = {
       stream.on('error', (error) => writeStream.destroy(error));
 
       stream.on('data', (data) => {
-        buffer.push(data);
+        if (args.type === 'cover') {
+          buffer.push(data);
+        }
+
         currentFileSize += data.length;
 
         if (currentFileSize > MAX_FILE_SIZE) {
@@ -68,23 +71,53 @@ module.exports = {
       stream.pipe(writeStream);
     });
 
-    buffer = Buffer.concat(buffer);
+    const options = {};
 
-    const radius = 100;
+    if (args.type === 'cover') {
+      buffer = Buffer.concat(buffer);
 
-    // sharp(buffer)
-    //   .toFormat('png', {palette: true})
-    //   .extend(100)
-    //   .blur(1 + radius / 2)
-    //   .toFile(pathForBlurred, (err, info) => {
-    //     console.log(err, info);
-    //   });
+      const fileInfo = await new Promise(function(resolve, reject) {
+        const radius = 200;
+        const padding = 400;
+        sharp(buffer)
+          .toFormat('png', {palette: true})
+          .extend({
+            top: padding,
+            bottom: padding,
+            left: padding,
+            right: padding,
+            background: { r: 0, g: 0, b: 0, alpha: 0 }
+          })
+          .blur(1 + radius / 2)
+          .toFile(pathForBlurred, (err, info) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(info);
+            }
+          });
+      });
+
+      const file = {
+        name: fsBlurredFileName,
+        type: mimetype,
+        size: fileInfo.size,
+        local_name: fsBlurredFileName,
+        options
+      };
+
+      const blurredFileDB = (await filesController.create(file))[0];
+
+      options.blurredId = blurredFileDB.id;
+    }
+
 
     const file = {
       name: filename,
       type: mimetype,
       size: currentFileSize,
-      local_name: fsFileName
+      local_name: fsFileName,
+      options
     };
 
     return (await filesController.create(file))[0];
