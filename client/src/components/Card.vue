@@ -2,8 +2,7 @@
   .card-wrap
     .card(v-perspective :class="{mouseentered: mouseentered}" @mouseenter="mouseenter" @mouseleave="mouseleave")
       .image-wrap
-        video(preload ref="video" loop)
-          source(:src="video")
+        video(preload="none" ref="video" playsinline type="video/mp4" :src="video" :poster="poster")
         .image(:style="bg")
       .shadow-wrap: .shadow(:style="bg")
 </template>
@@ -30,6 +29,10 @@ export default {
       const coverURL = this.$APIRequest.getURL(`file/${this.data.cover_id}`);
       
       return {'background-image': `url(${coverURL})`}
+    },
+    
+    poster() {
+      return this.$APIRequest.getURL(`file/${this.data.cover_id}`);
     },
     
     video() {

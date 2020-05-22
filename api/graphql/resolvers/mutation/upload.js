@@ -1,4 +1,5 @@
 const { createWriteStream, unlink } = require('fs');
+const sharp = require('sharp');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const shortid = require('shortid');
@@ -23,9 +24,12 @@ module.exports = {
     const stream = createReadStream();
     const id = shortid.generate();
     const fsFileName = `${id}-${filename}`;
+    const fsBlurredFileName = `${id}-blurred-${filename}`;
     const path = `${UPLOAD_DIR}/${fsFileName}`;
+    const pathForBlurred = `${UPLOAD_DIR}/${fsBlurredFileName}`;
 
     let currentFileSize = 0;
+    let buffer = [];
 
     // Store the file in the filesystem.
     await new Promise((resolve, reject) => {
@@ -49,6 +53,7 @@ module.exports = {
       stream.on('error', (error) => writeStream.destroy(error));
 
       stream.on('data', (data) => {
+        buffer.push(data);
         currentFileSize += data.length;
 
         if (currentFileSize > MAX_FILE_SIZE) {
@@ -62,6 +67,18 @@ module.exports = {
       // Pipe the upload into the write stream.
       stream.pipe(writeStream);
     });
+
+    buffer = Buffer.concat(buffer);
+
+    const radius = 100;
+
+    // sharp(buffer)
+    //   .toFormat('png', {palette: true})
+    //   .extend(100)
+    //   .blur(1 + radius / 2)
+    //   .toFile(pathForBlurred, (err, info) => {
+    //     console.log(err, info);
+    //   });
 
     const file = {
       name: filename,

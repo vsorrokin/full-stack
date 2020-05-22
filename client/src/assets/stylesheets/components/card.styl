@@ -11,9 +11,6 @@
   top: 0
   left: 0
 
-  &.mouseentered
-    video
-      opacity: 1
 
   .image, .shadow
     bg-cover()
@@ -28,10 +25,9 @@
     width: 100%
     height: 100%
     z-index: 10
-    opacity: 0
     pointer-events: none
-    trans('opacity')
     outline: none
+    backface-visibility: hidden
 
   .image-wrap, .shadow-wrap
     height: 100%
