@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export COMPOSE_PROJECT_NAME=$(jq -r '.client.projectName' ./config.json)
+#export COMPOSE_PROJECT_NAME=$(jq -r '.client.projectName' ./config.json)
 export NETWORK_NAME=$(jq -r '.docker.networkName' ./config.json)
 
 export NODE_ENV=development

@@ -4,24 +4,14 @@ services:
     image: ${NODE_IMAGE}
     volumes:
       #- nodemodules:/usr/src/app/node_modules
-      - ../:/usr/src/app
+      - app-src:/usr/src/app
+      #- ../:/usr/src/app
     working_dir: /usr/src/app
-
-  install:
-    extends:
-      service: base
-    command: yarn
-
-  add:
-    extends:
-      service: base
-    command: yarn add ${LIBS}
 
   cmd:
     extends:
       service: base
     command: ${CMD}
 
-# volumes:
-#   nodemodules:
-#     external: true
+volumes:
+  app-src:

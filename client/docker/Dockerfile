@@ -4,6 +4,10 @@ FROM ${NODE_IMAGE}
 
 RUN echo $NODE_IMAGE
 
+# COPY ./ /usr/src/app/
+#
+# RUN ls /usr/src/app/
+
 
 # mkcert deps
 # RUN apt update

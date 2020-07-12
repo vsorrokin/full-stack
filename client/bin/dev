@@ -2,6 +2,6 @@
 
 source ./bin/data/env
 
-python -m webbrowser -t "https://localhost:${PORT}"
+#python -m webbrowser -t "https://localhost:${PORT}"
 
-docker-compose -f ./docker/docker-compose.yml up
+docker-compose -f ./docker/docker-compose.yml exec front node run.js -t dev

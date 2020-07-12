@@ -1,6 +1,13 @@
-const run = require('./cmd_runner');
+global.GCONFIG = require('./config.json');
+
+const {spawn} = require ('child_process');
 
 const commandLineArgs = require('command-line-args');
+
+function run(cmd) {
+  console.log('EXECUTING:', cmd);
+  const spawned = spawn(cmd, [], {shell: true, stdio: 'inherit'});
+}
 
 const options = commandLineArgs([
   { name: 'task', alias: 't', type: String, defaultValue: 'dev' }
@@ -11,10 +18,10 @@ switch (options.task) {
 
     switch (GCONFIG.client.mode) {
       case 'SSR':
-        run('cross-env NODE_ENV=development node server/ssr/index.js');
+        run('NODE_ENV=development node server/ssr/index.js');
         break;
       case 'SPA':
-        run('cross-env NODE_ENV=development webpack-dev-server --config ./build/spa/dev.conf.js');
+        run('NODE_ENV=development webpack-dev-server --config ./build/spa/dev.conf.js');
         break;
     }
 
@@ -24,10 +31,10 @@ switch (options.task) {
 
     switch (GCONFIG.client.mode) {
       case 'SSR':
-        run('cross-env NODE_ENV=production node server/ssr');
+        run('NODE_ENV=production node server/ssr');
         break;
       case 'SPA':
-        run('cross-env NODE_ENV=production node server/spa');
+        run('NODE_ENV=production node server/spa');
         break;
     }
 
@@ -39,8 +46,8 @@ switch (options.task) {
       case 'SSR':
         run(`
           rimraf dist &&
-          cross-env NODE_ENV=production webpack --config ./build/ssr/client.conf.js &&
-          cross-env NODE_ENV=production webpack --config ./build/ssr/server.conf.js
+          NODE_ENV=production webpack --config ./build/ssr/client.conf.js &&
+          NODE_ENV=production webpack --config ./build/ssr/server.conf.js
         `);
         break;
       case 'SPA':

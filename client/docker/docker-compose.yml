@@ -1,15 +1,17 @@
 version: '3.5'
 services:
   front:
+    container_name: front
     build:
-      context: .
+      context: ../
+      dockerfile: ./docker/Dockerfile
       args:
         NODE_IMAGE: ${NODE_IMAGE}
-    volumes:
+    #volumes:
       #- nodemodules:/usr/src/app/node_modules
-      - ../:/usr/src/app/
+      #- app-src:/usr/src/app/
     working_dir: /usr/src/app
-    command: node run.js -t dev
+    command: tail -f /dev/null
     ports:
       - "${PORT}:${PORT}"
     environment:
@@ -19,7 +21,6 @@ networks:
   default:
     name: ${NETWORK_NAME}
     driver: bridge
-
+#
 # volumes:
-#   nodemodules:
-#     external: true
+#   app-src:
