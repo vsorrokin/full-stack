@@ -1,7 +1,7 @@
 const availableCommands = {
-  'dev': 'Start development server (dev)',
-  'prod': 'Start production server',
+  'dev': 'Start development server',
   'build': 'Build the project',
+  'prod': 'Start production server',
   'deploy': 'Deploy the project'
 };
 
