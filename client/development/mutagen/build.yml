@@ -17,7 +17,8 @@ beforeCreate:
 # After this is done, we can start up the scripts.
 afterCreate:
   - cd ../../ && cmd yarn
-  - cd ../../ && cmd yarn cli dev_server
+  - cd ../../ && cmd yarn cli build_task || true
+  - exit 2
 
 # Tear down all services and remove the code volume after terminating sessions.
 afterTerminate:

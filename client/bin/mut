@@ -2,7 +2,7 @@
 
 source ./bin/data/env
 
-mutagen_project_file='./development/mutagen/base.yml'
+mutagen_project_file="./development/mutagen/$1.yml"
 
 # Register shutdown handler
 function gracefulShutdown ()
@@ -13,6 +13,5 @@ function gracefulShutdown ()
 trap "gracefulShutdown" 2
 
 
+
 mutagen project start -f "${mutagen_project_file}" || mutagen project terminate -f "${mutagen_project_file}"
-#python -m webbrowser -t "https://localhost:${PORT}"
-mutagen project run logs -f "${mutagen_project_file}"

@@ -15,7 +15,7 @@ module.exports = ({GCONFIG, shell, areYouSure}) => {
 
     // Run development environment
     dev() {
-      shell('dev');
+      shell('mut base');
     },
 
     // Run production server
@@ -28,6 +28,10 @@ module.exports = ({GCONFIG, shell, areYouSure}) => {
           shell('NODE_ENV=production node ./development/server/spa');
           break;
       }
+    },
+
+    prod() {
+      shell('mut prod');
     },
 
     // Build command itself (to run in docker or at host)
@@ -47,7 +51,7 @@ module.exports = ({GCONFIG, shell, areYouSure}) => {
     },
 
     build() {
-      shell('cmd yarn cli build_task');
+      shell('cmd yarn cli build_task || mut build');
     }
 
   }
