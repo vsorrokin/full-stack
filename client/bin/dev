@@ -2,6 +2,17 @@
 
 source ./bin/data/env
 
-#python -m webbrowser -t "https://localhost:${PORT}"
+mutagen_project_file='./development/mutagen/base.yml'
 
-docker-compose -f ./docker/docker-compose.yml exec front node run.js -t dev
+# Register shutdown handler
+function gracefulShutdown ()
+{
+  mutagen project terminate -f "${mutagen_project_file}"
+  exit 2
+}
+trap "gracefulShutdown" 2
+
+
+mutagen project start -f "${mutagen_project_file}" || mutagen project terminate -f "${mutagen_project_file}"
+#python -m webbrowser -t "https://localhost:${PORT}"
+mutagen project run logs -f "${mutagen_project_file}"

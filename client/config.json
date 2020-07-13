@@ -5,7 +5,7 @@
     "port": "8080",
     "modes": ["SPA", "SSR"],
     "mode": "SSR",
-    "HTTPS": true,
+    "HTTPS": false,
     "publicPath": "/dist"
   },
   "API": {

@@ -1,0 +1,32 @@
+sync:
+  defaults:
+    flushOnCreate: true
+    ignore:
+      vcs: true
+  code:
+    alpha: "../../"
+    beta: "docker://front/usr/src/app"
+
+
+# Set up the service and any volumes before creating sessions.
+beforeCreate:
+  - cd ../../
+  - dcm up -d
+
+# Set up the main services after creating sessions. At this point, sessions will
+# have been established and code pushed to the shared volume.
+# After this is done, we can start up the scripts.
+afterCreate:
+  - cd ../../
+  - cmd yarn
+  - cmd yarn cli dev_server
+
+# Tear down all services and remove the code volume after terminating sessions.
+afterTerminate:
+  - cd ../../
+  - dcm stop || true
+
+
+# Define common utility commands.
+commands:
+  logs: dcm logs --follow

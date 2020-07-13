@@ -1,11 +1,10 @@
 {
   "scripts": {
     "api": "cd api && yarn start",
-    "build": "node run.js -t build",
-    "prod": "node run.js -t prod",
     "https-gen": "cd ssl && mkcert localhost",
     "fonts": "node build/fonts.js",
-    "icons": "node build/fonts.js --icons"
+    "icons": "node build/fonts.js --icons",
+    "cli": "node development/cli.js"
   },
   "dependencies": {
     "@babel/core": "^7.8.7",
