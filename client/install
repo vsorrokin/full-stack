@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#docker volume create nodemodules
-
 LINE='export PATH=./bin:~/bin:$PATH'
 FILE=~/.bash_profile
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
@@ -9,6 +7,5 @@ grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
 LINE='export PATH=./bin:~/bin:$PATH'
 FILE=~/.zshrc
 grep -qF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
-
 
 exec ${SHELL} -l

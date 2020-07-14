@@ -3,8 +3,7 @@ services:
   front:
     container_name: front
     build:
-      context: ../../
-      dockerfile: ./development/docker/Dockerfile
+      context: .
       args:
         NODE_IMAGE: ${NODE_IMAGE}
     working_dir: /usr/src/app

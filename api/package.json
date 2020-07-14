@@ -5,8 +5,8 @@
     "Vadim Sorokin <k500i90@gmail.com>"
   ],
   "scripts": {
-    "dev": "LD_PRELOAD='/usr/src/app/node_modules/sharp/vendor/lib/libz.so' nodemon server.js",
-    "pgadmin": "node run.js -t pgadmin"
+    "pgadmin": "node run.js -t pgadmin",
+    "cli": "node development/cli.js"
   },
   "dependencies": {
     "apollo-server": "^2.13.1",

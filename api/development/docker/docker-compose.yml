@@ -1,6 +1,7 @@
 version: '3.0'
 services:
   api:
+    container_name: api
     build:
       context: .
       args:
@@ -8,11 +9,8 @@ services:
     depends_on:
       - postgres
       - redis
-    container_name: myvid-back
-    volumes:
-      - ../:/usr/src/app/
     working_dir: /usr/src/app
-    command: yarn dev
+    command: tail -f /dev/null
     ports:
       - "${PORT}:${PORT}"
     environment:

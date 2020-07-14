@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source ./bin/data/env
+
+mutagen_project_file="./development/mutagen/$1.yml"
+
+# Register shutdown handler
+function gracefulShutdown ()
+{
+  mutagen project terminate -f "${mutagen_project_file}"
+  exit 2
+}
+trap "gracefulShutdown" 2
+
+
+mutagen project terminate -f "${mutagen_project_file}"
+mutagen project start -f "${mutagen_project_file}" || mutagen project terminate -f "${mutagen_project_file}"

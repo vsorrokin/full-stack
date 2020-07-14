@@ -1,7 +1,0 @@
-#!/bin/bash
-
-source ./bin/data/env
-
-db migrate
-
-docker-compose -f ./docker/docker-compose.yml up

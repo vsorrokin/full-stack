@@ -1,3 +1,4 @@
+*.yml.lock
 yarn-error.log
 /secret/credentials.json
 
@@ -5,5 +6,5 @@ node_modules
 
 .DS_Store
 
-/cache
+development/cache
 /file_storage
