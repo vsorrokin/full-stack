@@ -25,7 +25,8 @@ module.exports = {
       '@': context,
       '#c': path.resolve(context, 'components'),
       '#p': path.resolve(context, 'components/pages')
-    }
+    },
+    symlinks: false
   },
 
   module: {

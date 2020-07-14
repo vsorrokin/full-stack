@@ -8,7 +8,10 @@ const baseConfig = require('./base.conf.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DashboardPlugin = require("webpack-dashboard/plugin");
 
-module.exports = merge(baseConfig, {
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin({disable: true});
+
+module.exports = smp.wrap(merge(baseConfig, {
   mode: 'development',
 
   devServer: {
@@ -36,4 +39,4 @@ module.exports = merge(baseConfig, {
     }),
     new DashboardPlugin()
   ]
-});
+}));

@@ -13,5 +13,5 @@ function gracefulShutdown ()
 trap "gracefulShutdown" 2
 
 
-
+mutagen project terminate -f "${mutagen_project_file}"
 mutagen project start -f "${mutagen_project_file}" || mutagen project terminate -f "${mutagen_project_file}"

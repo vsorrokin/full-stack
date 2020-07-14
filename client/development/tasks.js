@@ -15,7 +15,7 @@ module.exports = ({GCONFIG, shell, areYouSure}) => {
 
     // Run development environment
     dev() {
-      shell('mut base');
+      shell('mut dev');
     },
 
     // Run production server

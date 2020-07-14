@@ -1,5 +1,0 @@
-#!/bin/bash
-
-source ./bin/data/env
-
-LIBS="$*" docker-compose -f ./docker/docker-compose.builder.yml run --rm add

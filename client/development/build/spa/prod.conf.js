@@ -8,7 +8,10 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = merge(baseConfig, {
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin({disable: true});
+
+module.exports = smp.wrap(merge(baseConfig, {
   mode: 'production',
 
   output: {
@@ -28,4 +31,4 @@ module.exports = merge(baseConfig, {
     }),
     new CompressionPlugin({test: /\.(js|css)$/})
   ]
-});
+}));

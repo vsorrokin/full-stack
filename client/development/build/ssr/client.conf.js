@@ -2,11 +2,14 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin({disable: true});
+
 const isProd = process.env.NODE_ENV === 'production';
 
 const baseConfig = require(`../spa/${isProd ? 'prod' : 'base'}.conf.js`);
 
-module.exports = merge(baseConfig, {
+module.exports = smp.wrap(merge(baseConfig, {
   entry: './entry-client.js',
 
   output: {
@@ -25,4 +28,4 @@ module.exports = merge(baseConfig, {
     // output directory.
     new VueSSRClientPlugin()
   ]
-});
+}));
