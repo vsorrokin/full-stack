@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export COMPOSE_PROJECT_NAME=$(jq -r '.API.projectName' ./config.json)
+#export COMPOSE_PROJECT_NAME=$(jq -r '.API.projectName' ./config.json)
 export API_HOST=$(jq -r '.docker.APIHost' ../config.json)
 export NETWORK_NAME=$(jq -r '.docker.networkName' ./config.json)
 
