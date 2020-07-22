@@ -1,6 +1,7 @@
 const availableCommands = {
   'dev': 'Start development server',
   'migrate': 'Run database migrations',
+  'seed': 'Apply database seeds',
   'clear': 'Clear database data'
 };
 

@@ -15,6 +15,14 @@ module.exports = ({GCONFIG, shell, areYouSure}) => {
       shell('npx sequelize db:migrate');
     },
 
+    seed_raw() {
+      shell('npx sequelize db:seed:all');
+    },
+
+    seed() {
+      shell('cmd npx sequelize db:seed:all');
+    },
+
     migrate() {
       shell('cmd npx sequelize db:migrate');
 
