@@ -18,7 +18,7 @@
     "apollo-link-http": "^1.5.17",
     "apollo-upload-client": "^13.0.0",
     "autosize": "^4.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-loader": "^8.0.6",
     "cache-loader": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
