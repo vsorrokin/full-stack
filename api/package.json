@@ -19,7 +19,7 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "execa": "^4.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql": "^15.0.0",
     "graphql-fields": "^2.0.3",
     "graphql-import": "^1.0.2",
